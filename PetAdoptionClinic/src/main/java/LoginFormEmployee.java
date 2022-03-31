@@ -93,12 +93,11 @@ public class LoginFormEmployee extends JFrame implements ActionListener {
         gbc.gridy = 3;
         panel.add(passText, gbc);
 
-        // add success sign-in button
+        // add test fail button DELETE THIS LATER YOU BOZO
         gbc.gridx = 0;
         gbc.gridy = 4;
         panel.add(failButton, gbc);
 
-        // add test fail button DELETE THIS LATER YOU BOZO
         gbc.gridx = 1;
         gbc.gridy = 4;
         panel.add(signInButton, gbc);

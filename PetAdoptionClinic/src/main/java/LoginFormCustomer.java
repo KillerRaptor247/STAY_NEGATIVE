@@ -119,8 +119,6 @@ public class LoginFormCustomer extends JFrame implements ActionListener {
         // and check if authentic
         // but for now simple implementation
         if (e.getSource().equals(signInButton)) {
-        	HomePage form = new HomePage();
-        	form.createAndShowGUI();
             this.dispose();
         } else if (e.getSource().equals(failButton)) {
             System.out.println("WRONG PASSWORD INPUT: SYSTEM FAULT");

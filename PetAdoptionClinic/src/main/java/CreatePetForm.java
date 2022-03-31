@@ -4,9 +4,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
+<<<<<<< HEAD:PetAdoptionClinic/src/main/java/CreatePetForm.java
 public class CreatePetForm {
     public void createAndShowGui() {
         JFrame frame = new JFrame("Edit Form");
+=======
+public class EditForm {
+    public void createAndShowGUI() {
+    	
+    	ImageIcon img = new ImageIcon("dog-32-32.png");
+		
+        final JFrame frame = new JFrame("Edit Form");
+        frame.setIconImage(img.getImage());
+>>>>>>> 1bdb2b7 (Implemented Display and Checkout):PetAdoptionClinic/src/main/java/EditForm.java
         frame.setLocationRelativeTo(null);
         frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 
@@ -82,7 +92,6 @@ public class CreatePetForm {
         JButton cancel = new JButton("Cancel");
 
         save.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
                 // TODO: wait for implement
@@ -90,7 +99,6 @@ public class CreatePetForm {
         });
 
         cancel.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
             }
@@ -109,6 +117,7 @@ public class CreatePetForm {
         panelForAll.setOpaque(true);
         frame.add(panelForAll);
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 }

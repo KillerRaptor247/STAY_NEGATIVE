@@ -38,7 +38,10 @@ public class HomePage extends JFrame implements ActionListener{
 	JButton displayButton;
 	
 	public void createAndShowGUI() {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1bdb2b7 (Implemented Display and Checkout)
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setContentPane(new JPanel() {
             @Override
@@ -128,6 +131,10 @@ public class HomePage extends JFrame implements ActionListener{
 		add(panel, BorderLayout.CENTER);
 		pack();
 		
+		EditPetItem.addActionListener(this);
+		displayButton.addActionListener(this);
+		SignOutItem.addActionListener(this);
+		checkoutButton.addActionListener(this);
 		
 		
 		this.setTitle("Home Page");
@@ -141,6 +148,23 @@ public class HomePage extends JFrame implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		if (e.getSource().equals(displayButton)) {
+            DisplayForm display = new DisplayForm();
+            display.createAndShowGUI();
+	}
+		else if(e.getSource().equals(EditPetItem)) {
+			EditForm edit = new EditForm();
+			edit.createAndShowGUI();
+		}
+		else if(e.getSource().equals(SignOutItem)) {
+			this.dispose();
+	    	LoginFormEmployee form = new LoginFormEmployee();
+	    	form.createAndShowGUI();
+		}
+		else if(e.getSource().equals(checkoutButton)) {
+			CheckoutForm form = new CheckoutForm();
+			form.createAndShowGUI();
+		}
 		
 	}
 
