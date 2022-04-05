@@ -7,7 +7,7 @@ import java.awt.event.WindowEvent;
 // TODO: get the data from database or list maybe still pending
 public class EditPetForm {
     public void createAndShowGui() {
-        JFrame frame = new JFrame("Edit Form");
+        final JFrame frame = new JFrame("Edit Form");
         frame.setLocationRelativeTo(null);
         frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 
@@ -83,7 +83,6 @@ public class EditPetForm {
         JButton cancel = new JButton("Cancel");
 
         save.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
                 // TODO: wait for implement
@@ -91,7 +90,6 @@ public class EditPetForm {
         });
 
         cancel.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
             }

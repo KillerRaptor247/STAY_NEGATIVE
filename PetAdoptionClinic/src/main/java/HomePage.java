@@ -38,10 +38,6 @@ public class HomePage extends JFrame implements ActionListener{
 	JButton displayButton;
 	
 	public void createAndShowGUI() {
-<<<<<<< HEAD
-
-=======
->>>>>>> 1bdb2b7 (Implemented Display and Checkout)
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setContentPane(new JPanel() {
             @Override
@@ -80,10 +76,9 @@ public class HomePage extends JFrame implements ActionListener{
 
 		// Create Pet Form Call
 		CreatePetItem.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
-				CreatePetForm editForm = new CreatePetForm();
-				editForm.createAndShowGui();
+				CreatePetForm create = new CreatePetForm();
+				create.createAndShowGUI();
 				// TODO: wait to get data to database
 			}
 		});
@@ -153,8 +148,8 @@ public class HomePage extends JFrame implements ActionListener{
             display.createAndShowGUI();
 	}
 		else if(e.getSource().equals(EditPetItem)) {
-			EditForm edit = new EditForm();
-			edit.createAndShowGUI();
+			EditPetForm edit = new EditPetForm();
+			edit.createAndShowGui();
 		}
 		else if(e.getSource().equals(SignOutItem)) {
 			this.dispose();
