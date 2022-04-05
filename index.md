@@ -20,4 +20,4 @@ This application will be a pet adoption clinic application that will function as
 Our Renewed Iteration 1 project folder can be found [here](https://github.com/KillerRaptor247/STAY_Negative/tree/main/Iteration1_2)
 
 # Iteration 2
-Our Iteration 2 Project folder submission can be found (https://github.com/KillerRaptor247/STAY_Negative/tree/main/Iteration%202)[here]
+Our Iteration 2 Project folder submission can be found [here](https://github.com/KillerRaptor247/STAY_Negative/tree/main/Iteration%202)
