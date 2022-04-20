@@ -1,13 +1,21 @@
+package forms;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
-// TODO: get the data from database or list maybe still pending
-public class EditPetForm {
-    public void createAndShowGui() {
-        final JFrame frame = new JFrame("Edit Form");
+
+public class CreatePetForm {
+     
+
+
+    public void createAndShowGUI() {
+    	
+    	ImageIcon img = new ImageIcon("dog-32-32.png");
+		
+        final JFrame frame = new JFrame("Create Form");
+        frame.setIconImage(img.getImage());
         frame.setLocationRelativeTo(null);
         frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 
@@ -108,6 +116,8 @@ public class EditPetForm {
         panelForAll.setOpaque(true);
         frame.add(panelForAll);
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-    }
+    
 }
+    }

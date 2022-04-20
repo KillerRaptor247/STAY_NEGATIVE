@@ -1,3 +1,5 @@
+import forms.*;
+
 /**
  * This file is just for testing, to make it more obv
  */
