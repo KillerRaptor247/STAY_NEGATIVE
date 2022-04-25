@@ -1,17 +1,27 @@
 package forms;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
-public class HomePage extends JFrame implements ActionListener{
+import dao.PetClinic;
+
+public class HomePage extends Form implements ActionListener{
 	
+	HomePage(PetClinic pc) {
+		super(pc);
+	}
+
 	// declare JSwing components
 	JMenuBar menuBar;
 	JMenu fileMenu;
@@ -49,8 +59,7 @@ public class HomePage extends JFrame implements ActionListener{
             }
         });
 		
-        ImageIcon img = new ImageIcon("dog-32-32.png");
-        this.setIconImage(img.getImage());
+        
 		
 		menuBar = new JMenuBar();
 		
@@ -75,14 +84,6 @@ public class HomePage extends JFrame implements ActionListener{
 		CreateCusItem = new JMenuItem("Create Customer");
 		CreatePetItem = new JMenuItem("Create Pet");
 
-		// Create Pet Form Call
-		CreatePetItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CreatePetForm create = new CreatePetForm();
-				create.createAndShowGUI();
-				// TODO: wait to get data to database
-			}
-		});
 		
 		createMenu.add(CreateEmpItem);
 		createMenu.add(CreateCusItem);
@@ -123,10 +124,13 @@ public class HomePage extends JFrame implements ActionListener{
 		gbc.gridx = 1;
 		gbc.gridy = 2;
 		panel.add(checkoutButton, gbc);
-		
+		//this.getRootPane().getWindowDecorationStyle();
 		add(panel, BorderLayout.CENTER);
 		pack();
 		
+		CreateEmpItem.addActionListener(this);
+		CreateCusItem.addActionListener(this);
+		CreatePetItem.addActionListener(this);
 		EditPetItem.addActionListener(this);
 		displayButton.addActionListener(this);
 		SignOutItem.addActionListener(this);
@@ -145,23 +149,34 @@ public class HomePage extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource().equals(displayButton)) {
-            DisplayForm display = new DisplayForm();
+            DisplayForm display = new DisplayForm(this.store);
             display.createAndShowGUI();
 	}
 		else if(e.getSource().equals(EditPetItem)) {
-			EditPetForm edit = new EditPetForm();
-			edit.createAndShowGui();
+			EditPetForm edit = new EditPetForm(this.store);
+			edit.createAndShowGUI();
 		}
 		else if(e.getSource().equals(SignOutItem)) {
 			this.dispose();
-	    	LoginFormEmployee form = new LoginFormEmployee();
+	    	LoginFormEmployee form = new LoginFormEmployee(this.store);
 	    	form.createAndShowGUI();
 		}
 		else if(e.getSource().equals(checkoutButton)) {
-			CheckoutForm form = new CheckoutForm();
+			CheckoutForm form = new CheckoutForm(this.store);
 			form.createAndShowGUI();
 		}
-		
+		else if(e.getSource().equals(CreateEmpItem)) {
+			CreateEmpForm form = new CreateEmpForm(this.store);
+			form.createAndShowGUI();
+		}
+		else if(e.getSource().equals(CreatePetItem)) {
+			CreatePetForm form = new CreatePetForm(this.store);
+			form.createAndShowGUI();
+		}
+		else if(e.getSource().equals(CreateCusItem)) {
+			CreateCustForm form = new CreateCustForm(this.store);
+			form.createAndShowGUI();
+		}
 	}
 
 }

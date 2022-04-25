@@ -12,8 +12,15 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class DisplayForm extends JFrame implements ActionListener {
+import dao.PetClinic;
+
+public class DisplayForm extends Form implements ActionListener {
 	
+	DisplayForm(PetClinic pc) {
+		super(pc);
+		// TODO Auto-generated constructor stub
+	}
+
 	// declare JSwing components
 	JPanel panel = new JPanel(new GridBagLayout());
 	DefaultTableModel petModel = new DefaultTableModel();
@@ -28,7 +35,7 @@ public class DisplayForm extends JFrame implements ActionListener {
 	JLabel welcomeMessage;
 	
 	public void createAndShowGUI() {
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setContentPane(new JPanel() {
             @Override
             public void paintComponent(Graphics g) {

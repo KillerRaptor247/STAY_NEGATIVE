@@ -2,13 +2,21 @@ package forms;
 
 
 import javax.swing.*;
+
+import dao.PetClinic;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginFormCustomer extends JFrame implements ActionListener {
+public class LoginFormCustomer extends Form implements ActionListener {
 
-    // variables
+    LoginFormCustomer(PetClinic pc) {
+		super(pc);
+		// TODO Auto-generated constructor stub
+	}
+
+	// variables
     JButton signInButton;
     // test fail button
     JButton failButton;

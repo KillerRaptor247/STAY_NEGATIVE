@@ -15,7 +15,7 @@ public class PetClinic {
 	
 	Set<Reciept> reciepts;
 	
-	PetClinic(){
+	public PetClinic(){
 		// create reciepts
 		reciepts = new HashSet<Reciept>();
 		// load in databases

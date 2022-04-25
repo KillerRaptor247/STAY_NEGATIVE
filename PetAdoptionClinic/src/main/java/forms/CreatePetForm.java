@@ -1,60 +1,72 @@
 package forms;
 import javax.swing.*;
+
+import dao.PetClinic;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
 
-public class CreatePetForm {
+public class CreatePetForm extends Form implements ActionListener{
      
+	JButton save;
+	JButton cancel;
 
 
-    public void createAndShowGUI() {
+    CreatePetForm(PetClinic pc) {
+		super(pc);
+		// TODO Auto-generated constructor stub
+	}
+
+	public void createAndShowGUI() {
     	
+		this.setTitle("Create Pet Form");
     	ImageIcon img = new ImageIcon("dog-32-32.png");
 		
-        final JFrame frame = new JFrame("Create Form");
-        frame.setIconImage(img.getImage());
-        frame.setLocationRelativeTo(null);
-        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+        this.setIconImage(img.getImage());
+        this.setLocationRelativeTo(null);
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 
         JPanel panelForAll = new JPanel(new BorderLayout());
         JPanel panelForForm = new JPanel(new SpringLayout());
 
+        
+        JTextField idTF = new JTextField("1");
+        idTF.setEditable(false);
         JTextField nameTF = new JTextField("e.g. Boo-Boo", 15);
         nameTF.setEditable(true);
         JTextField ageTF = new JTextField("e.g. 1 (Integer Please)", 15);
         ageTF.setEditable(true);
         JTextField birthdayTF = new JTextField("e.g. 2020.6.20", 15);
         birthdayTF.setEditable(true);
-        JTextField colorTF = new JTextField("e.g. Gold", 15);
-        colorTF.setEditable(true);
-        JTextField weightTF = new JTextField("e.g. 11 (lb Please)", 15);
-        weightTF.setEditable(true);
-
+        JTextField breedTF = new JTextField("e.g. Tabby", 15);
+        breedTF.setEditable(true);
+        
+        JLabel idLbl = new JLabel("ID:", JLabel.TRAILING);
         JLabel nameLbl = new JLabel("Name:", JLabel.TRAILING);
         JLabel ageLbl = new JLabel("Age:", JLabel.TRAILING);
         JLabel birthdayLbl = new JLabel("Birthday:", JLabel.TRAILING);
-        JLabel colorLbl = new JLabel("Color:", JLabel.TRAILING);
-        JLabel weightLbl = new JLabel("Weight:", JLabel.TRAILING);
+        JLabel breedLbl = new JLabel("Breed:", JLabel.TRAILING);
 
+        idLbl.setLabelFor(idTF);
         nameLbl.setLabelFor(nameTF);
         ageLbl.setLabelFor(ageTF);
         birthdayLbl.setLabelFor(birthdayTF);
-        colorLbl.setLabelFor(colorTF);
-        weightLbl.setLabelFor(weightTF);
+        breedLbl.setLabelFor(breedTF);
 
+        
+        panelForForm.add(idLbl);
+        panelForForm.add(idTF);
         panelForForm.add(nameLbl);
         panelForForm.add(nameTF);
         panelForForm.add(ageLbl);
         panelForForm.add(ageTF);
         panelForForm.add(birthdayLbl);
         panelForForm.add(birthdayTF);
-        panelForForm.add(colorLbl);
-        panelForForm.add(colorTF);
-        panelForForm.add(weightLbl);
-        panelForForm.add(weightTF);
+        panelForForm.add(breedLbl);
+        panelForForm.add(breedTF);
 
         SpringUtilities.makeCompactGrid(panelForForm, 5, 2, 10, 10, 10, 10);
 
@@ -85,39 +97,43 @@ public class CreatePetForm {
         panelForCheckbox.add(cat);
         panelForCheckbox.add(dog);
         SpringUtilities.makeCompactGrid(panelForCheckbox, 2, 3, 13, 0, 10, 10);
+        
+        male.setSelected(true);
+        cat.setSelected(true);
 
         JPanel panelForButton = new JPanel();
-        JButton save = new JButton("Save");
-        JButton cancel = new JButton("Cancel");
-
-        save.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                // TODO: wait for implement
-            }
-        });
-
-        cancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-            }
-        });
+        save = new JButton("Save");
+        cancel = new JButton("Cancel");
+        save.addActionListener(this);
+        cancel.addActionListener(this);
 
         panelForButton.add(cancel);
         panelForButton.add(save);
 
-        panelForForm.setOpaque(true);
-        panelForButton.setOpaque(true);
+       panelForForm.setOpaque(true);
+       panelForButton.setOpaque(true);
         panelForForm.setOpaque(true);
         panelForAll.add(panelForForm, BorderLayout.NORTH);
         panelForAll.add(panelForCheckbox, BorderLayout.CENTER);
         panelForAll.add(panelForButton, BorderLayout.SOUTH);
 
         panelForAll.setOpaque(true);
-        frame.add(panelForAll);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        this.add(panelForAll);
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
     
 }
+
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource().equals(save)) {
+			System.out.println("Pet Should Be Created and Saved");
+			this.dispose();
+		}
+		if(e.getSource().equals(cancel)) {
+			System.out.println("Pet Creation Cancelled");
+			this.dispose();
+		}
+	}
     }

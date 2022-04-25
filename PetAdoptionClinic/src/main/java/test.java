@@ -1,3 +1,4 @@
+import dao.PetClinic;
 import forms.*;
 
 /**
@@ -5,8 +6,9 @@ import forms.*;
  */
 public class test {
     public static void main(String[] args) {
-
-        LoginChoose loginChoose = new LoginChoose();
+    	PetClinic mainStore = new PetClinic();
+    	// load in mainStores
+        LoginChoose loginChoose = new LoginChoose(mainStore);
         loginChoose.createAndShowGUI();
         //EditForm editForm = new EditForm();
         //editForm.createAndShowGui();

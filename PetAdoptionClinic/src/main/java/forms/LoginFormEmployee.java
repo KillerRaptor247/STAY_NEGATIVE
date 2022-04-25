@@ -12,9 +12,16 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class LoginFormEmployee extends JFrame implements ActionListener {
+import dao.PetClinic;
 
-    // variables
+public class LoginFormEmployee extends Form implements ActionListener {
+
+    LoginFormEmployee(PetClinic pc) {
+		super(pc);
+		// TODO Auto-generated constructor stub
+	}
+
+	// variables
     JButton signInButton;
     // test fail button
     JButton failButton;
@@ -125,7 +132,7 @@ public class LoginFormEmployee extends JFrame implements ActionListener {
         // and check if authentic
         // but for now simple implementation
         if (e.getSource().equals(signInButton)) {
-        	HomePage form = new HomePage();
+        	HomePage form = new HomePage(this.store);
         	form.createAndShowGUI();
             this.dispose();
         } else if (e.getSource().equals(failButton)) {

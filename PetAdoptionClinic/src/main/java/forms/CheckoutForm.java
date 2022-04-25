@@ -12,9 +12,16 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class CheckoutForm extends JFrame implements ActionListener{
+import dao.PetClinic;
+
+public class CheckoutForm extends Form implements ActionListener{
 	
-	    // declare JSwing components
+	    CheckoutForm(PetClinic pc) {
+		super(pc);
+		// TODO Auto-generated constructor stub
+	}
+
+		// declare JSwing components
 		JPanel panel = new JPanel(new GridBagLayout());
 		JPanel buttonPanel = new JPanel(new GridBagLayout());
 		DefaultTableModel petModel = new DefaultTableModel();
@@ -95,7 +102,7 @@ public class CheckoutForm extends JFrame implements ActionListener{
 		if(e.getSource().equals(adoptButton)) {
 			int result = JOptionPane.showConfirmDialog(this, "Would You Like to Sign-In?", "Customer Login", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 			if(result == JOptionPane.YES_OPTION) {
-				LoginFormCustomer customer = new LoginFormCustomer();
+				LoginFormCustomer customer = new LoginFormCustomer(this.store);
 				customer.createAndShowGUI();
 			}
 			else if(result == JOptionPane.NO_OPTION) {

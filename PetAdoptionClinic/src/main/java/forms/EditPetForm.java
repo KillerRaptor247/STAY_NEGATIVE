@@ -1,16 +1,28 @@
 package forms;
 import javax.swing.*;
+
+import dao.PetClinic;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
 // TODO: get the data from database or list maybe still pending
-public class EditPetForm {
-    public void createAndShowGui() {
-        final JFrame frame = new JFrame("Edit Form");
-        frame.setLocationRelativeTo(null);
-        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+public class EditPetForm extends Form implements ActionListener{
+	
+	JButton save;
+	JButton cancel;
+	
+    EditPetForm(PetClinic pc) {
+		super(pc);
+		// TODO Auto-generated constructor stub
+	}
+
+	public void createAndShowGUI() {
+		this.setTitle("Edit Employee Form");
+        this.setLocationRelativeTo(null);
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 
         JPanel panelForAll = new JPanel(new BorderLayout());
         JPanel panelForForm = new JPanel(new SpringLayout());
@@ -83,19 +95,6 @@ public class EditPetForm {
         JButton save = new JButton("Save");
         JButton cancel = new JButton("Cancel");
 
-        save.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                // TODO: wait for implement
-            }
-        });
-
-        cancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-            }
-        });
-
         panelForButton.add(cancel);
         panelForButton.add(save);
 
@@ -107,8 +106,20 @@ public class EditPetForm {
         panelForAll.add(panelForButton, BorderLayout.SOUTH);
 
         panelForAll.setOpaque(true);
-        frame.add(panelForAll);
-        frame.pack();
-        frame.setVisible(true);
+        this.add(panelForAll);
+        this.pack();
+        this.setVisible(true);
     }
+
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource().equals(save)) {
+			System.out.println("Pet should be updated");
+			this.dispose();
+		}
+		if(e.getSource().equals(cancel)) {
+			System.out.println("Pet editing cancelled");
+			this.dispose();
+		}
+	}
 }

@@ -5,10 +5,14 @@ import java.util.Set;
 import classes.Pet;
 
 public class PetDAO {
-	Set<Pet> pets;
+	private Set<Pet> pets;
 	
 	PetDAO(){
 		pets = new HashSet<Pet>();
+	}
+	
+	public int getSize() {
+		return pets.size();
 	}
 	
 	public void createPet() {

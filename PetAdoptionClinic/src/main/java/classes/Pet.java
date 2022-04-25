@@ -8,6 +8,7 @@ public class Pet {
 	String breed;
 	String name;
 	Species species;
+	Sex sex;
 	
 	public Species getSpecies() {
 		return species;

@@ -2,14 +2,23 @@ package forms;
 
 
 import javax.swing.*;
+
+import dao.PetClinic;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginChoose extends JFrame implements ActionListener {
+public class LoginChoose extends Form implements ActionListener {
 	
     
-    JPanel panel = new JPanel(new BorderLayout());
+    public LoginChoose(PetClinic pc) {
+		super(pc);
+		// TODO Auto-generated constructor stub
+	}
+
+
+	JPanel panel = new JPanel(new BorderLayout());
 
     JPanel messagePanel = new JPanel();
     JLabel message;
@@ -45,13 +54,13 @@ public class LoginChoose extends JFrame implements ActionListener {
 			// TODO Auto-generated method stub
 	        if (e.getSource().equals(customerButton)) {
 	        	System.out.println("CUSTOMER ALERT");
-	            LoginFormCustomer loginFormCustomer = new LoginFormCustomer();
+	            LoginFormCustomer loginFormCustomer = new LoginFormCustomer(this.store);
 	            loginFormCustomer.createAndShowGUI();
 	            this.dispose();
 	        	
 	        } else if (e.getSource().equals(employeeButton)) {
 	            System.out.println("EMPLOYEE ALERT");
-	            LoginFormEmployee loginFormEmployee = new LoginFormEmployee();
+	            LoginFormEmployee loginFormEmployee = new LoginFormEmployee(this.store);
 	            loginFormEmployee.createAndShowGUI();
 	            this.dispose();
 	            
