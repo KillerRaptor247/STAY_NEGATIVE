@@ -132,6 +132,8 @@ public class HomePage extends Form implements ActionListener{
 		CreateCusItem.addActionListener(this);
 		CreatePetItem.addActionListener(this);
 		EditPetItem.addActionListener(this);
+		EditCusItem.addActionListener(this);
+		EditEmpItem.addActionListener(this);
 		displayButton.addActionListener(this);
 		SignOutItem.addActionListener(this);
 		checkoutButton.addActionListener(this);
@@ -175,6 +177,14 @@ public class HomePage extends Form implements ActionListener{
 		}
 		else if(e.getSource().equals(CreateCusItem)) {
 			CreateCustForm form = new CreateCustForm(this.store);
+			form.createAndShowGUI();
+		}
+		else if(e.getSource().equals(EditCusItem)) {
+			EditCustForm form = new EditCustForm(this.store);
+			form.createAndShowGUI();
+		}
+		else if(e.getSource().equals(EditEmpItem)) {
+			EditEmpForm form = new EditEmpForm(this.store);
 			form.createAndShowGUI();
 		}
 	}

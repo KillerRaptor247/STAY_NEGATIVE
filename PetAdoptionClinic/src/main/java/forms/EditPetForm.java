@@ -20,46 +20,46 @@ public class EditPetForm extends Form implements ActionListener{
 	}
 
 	public void createAndShowGUI() {
-		this.setTitle("Edit Employee Form");
+		this.setTitle("Edit Pet Form");
         this.setLocationRelativeTo(null);
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 
         JPanel panelForAll = new JPanel(new BorderLayout());
         JPanel panelForForm = new JPanel(new SpringLayout());
 
-        JTextField nameTF = new JTextField("e.g. Boo-Boo", 15);
+        JTextField idTF = new JTextField("1", 15);
+        idTF.setEditable(false);
+        JTextField nameTF = new JTextField("e.g Boo-Boo", 15);
         nameTF.setEditable(true);
-        JTextField ageTF = new JTextField("e.g. 1 (Integer Please)", 15);
+        JTextField ageTF = new JTextField("e.g. 1", 15);
         ageTF.setEditable(true);
         JTextField birthdayTF = new JTextField("e.g. 2020.6.20", 15);
         birthdayTF.setEditable(true);
-        JTextField colorTF = new JTextField("e.g. Gold", 15);
-        colorTF.setEditable(true);
-        JTextField weightTF = new JTextField("e.g. 11 (lb Please)", 15);
-        weightTF.setEditable(true);
+        JTextField breedTF = new JTextField("e.g. Tabby", 15);
+        breedTF.setEditable(true);
 
+        JLabel idLbl = new JLabel("Id:", JLabel.TRAILING);
         JLabel nameLbl = new JLabel("Name:", JLabel.TRAILING);
         JLabel ageLbl = new JLabel("Age:", JLabel.TRAILING);
         JLabel birthdayLbl = new JLabel("Birthday:", JLabel.TRAILING);
-        JLabel colorLbl = new JLabel("Color:", JLabel.TRAILING);
-        JLabel weightLbl = new JLabel("Weight:", JLabel.TRAILING);
+        JLabel breedLbl = new JLabel("Breed:", JLabel.TRAILING);
 
         nameLbl.setLabelFor(nameTF);
         ageLbl.setLabelFor(ageTF);
         birthdayLbl.setLabelFor(birthdayTF);
-        colorLbl.setLabelFor(colorTF);
-        weightLbl.setLabelFor(weightTF);
+        idLbl.setLabelFor(idTF);
+        breedLbl.setLabelFor(breedTF);
 
+        panelForForm.add(idLbl);
+        panelForForm.add(idTF);
         panelForForm.add(nameLbl);
         panelForForm.add(nameTF);
         panelForForm.add(ageLbl);
         panelForForm.add(ageTF);
         panelForForm.add(birthdayLbl);
         panelForForm.add(birthdayTF);
-        panelForForm.add(colorLbl);
-        panelForForm.add(colorTF);
-        panelForForm.add(weightLbl);
-        panelForForm.add(weightTF);
+        panelForForm.add(breedLbl);
+        panelForForm.add(breedTF);
 
         SpringUtilities.makeCompactGrid(panelForForm, 5, 2, 10, 10, 10, 10);
 
@@ -92,8 +92,13 @@ public class EditPetForm extends Form implements ActionListener{
         SpringUtilities.makeCompactGrid(panelForCheckbox, 2, 3, 13, 0, 10, 10);
 
         JPanel panelForButton = new JPanel();
-        JButton save = new JButton("Save");
-        JButton cancel = new JButton("Cancel");
+        save = new JButton("Save");
+        cancel = new JButton("Cancel");
+        save.addActionListener(this);
+        cancel.addActionListener(this);
+        
+        cat.setSelected(true);
+        male.setSelected(true);
 
         panelForButton.add(cancel);
         panelForButton.add(save);
