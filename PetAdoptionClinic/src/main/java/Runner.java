@@ -4,7 +4,7 @@ import forms.*;
 /**
  * This file is just for testing, to make it more obv
  */
-public class test {
+public class Runner {
     public static void main(String[] args) {
     	PetClinic mainStore = new PetClinic();
     	// load in mainStores

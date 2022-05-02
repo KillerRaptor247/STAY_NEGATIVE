@@ -19,14 +19,9 @@ public class Employee extends Customer{
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getEmpId() {
+	public int getID() {
 		return empId;
 	}
-
-	public void setEmpId(int empId) {
-		this.empId = empId;
-	}
-
 	public boolean isManager() {
 		return isManager;
 	}

@@ -27,15 +27,21 @@ public class PetClinic {
 	
 	public void importData() {
 		// read in and populate all DAOs
+		//petDAO.import()
+		//employeeDAO.import()
+		//customerDAO.import()
 	}
 	
 	public void exportData() {
 		// write out all DAOs
+		petDAO.export();
+		employeeDAO.export();
+		customerDAO.export();
 	}
 	
 	public boolean isEmployeeEmpty() {
 		// return status of employee DAO
-		return employeeDAO.getSize() == 0;
+		return employeeDAO.employees.size() == 0;
 	}
 	
 	public boolean find(Pet p) {

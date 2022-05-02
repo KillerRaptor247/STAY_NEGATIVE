@@ -1,6 +1,11 @@
 package classes;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Customer {
+	
+	private static final AtomicInteger custCount = new AtomicInteger(0);
+	private Integer custID;
 	private String name;
 	private String address;
 	private String age;
@@ -20,9 +25,13 @@ public class Customer {
 		this.username = username;
 		this.password = password;
 		this.email = email;
+		this.custID = custCount.incrementAndGet();
 	}
 	public String getName() {
 		return name;
+	}
+	public int getID() {
+		return custID;
 	}
 	public void setName(String name) {
 		this.name = name;

@@ -18,15 +18,21 @@ public class Pet {
 		this.species = species;
 	}
 
-	Pet(String nm, String brd,String ag){
-		name = nm;
-		age = ag;
-		breed = brd;
+	public Pet(String name, String breed,String age, Species species, Sex sex){
+		this.name = name;
+		this.age = age;
+		this.breed = breed;
+		this.species = species;
+		this.sex = sex;
 		ID = number.incrementAndGet();
+		
 	}
 	
 	public Pet(){
 		
+	}
+	public Integer getID() {
+		return ID;
 	}
 	public String getName() {
 		return name;
@@ -45,5 +51,11 @@ public class Pet {
 	}
 	public void setBreed(String breed) {
 		this.breed = breed;
+	}
+	public Sex getSex() {
+		return this.sex;
+	}
+	public void setSex(Sex sex) {
+		this.sex = sex;
 	}
 }
