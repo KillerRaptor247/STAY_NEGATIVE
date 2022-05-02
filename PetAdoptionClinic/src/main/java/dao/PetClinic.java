@@ -7,10 +7,10 @@ import classes.*;
 
 public class PetClinic {
 	
-	CustomerDAO customerDAO;
-	PetDAO petDAO;
-	EmployeeDAO employeeDAO;
-	Employee signedInEmployee;
+	public CustomerDAO customerDAO = new CustomerDAO();
+	public PetDAO petDAO = new PetDAO();
+	public EmployeeDAO employeeDAO = new EmployeeDAO();
+	public Employee signedInEmployee;
 	Customer signedInCustomer;
 	
 	Set<Reciept> reciepts;
@@ -21,15 +21,26 @@ public class PetClinic {
 		// load in databases
 	}
 	
-	public void login(String user, String pass) {
+	public boolean login(String user, String pass) {
 		
+		for(Employee emp : employeeDAO.employees.values()) {
+			if(emp.getUsername().equals(user) && emp.getPassword().equals(pass)) {
+					signedInEmployee = emp;
+					return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean noEmployees() {
+		return employeeDAO.employees.size() > 0;
 	}
 	
 	public void importData() {
 		// read in and populate all DAOs
-		//petDAO.import()
-		//employeeDAO.import()
-		//customerDAO.import()
+		petDAO.importDAO();
+		employeeDAO.importDAO();
+		customerDAO.importDAO();
 	}
 	
 	public void exportData() {

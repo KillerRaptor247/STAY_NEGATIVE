@@ -60,7 +60,7 @@ public class CustomerDAO {
 			FileWriter writer = new FileWriter("CustomerDAO.dat", Boolean.TRUE);
 			for(Customer cus : customers.values()) {
 				writer.write(cus.getID() + "," + cus.getName() + "," + cus.getAddress() + "," + cus.getAge() + ","
-						+ cus.getUsername() + cus.getPassword() + cus.getEmail() + "\n");
+						+ cus.getUsername() + "," + cus.getPassword() + "," + cus.getEmail() + "\n");
 			}
 			writer.close();
 			
@@ -71,6 +71,8 @@ public class CustomerDAO {
 	}
 	
 	public void importDAO() {
+		// first clear the DAO
+		customers.clear();
 		// if the file doesn't already exist create it
 		File dao = new File("CustomerDAO.dat");
 		try {
@@ -80,6 +82,12 @@ public class CustomerDAO {
 				String line;
 				while((line = br.readLine()) != null) {
 					// tokenize line and create customers, put them in the map
+					if (line != null) {
+						String [] words = line.split(",");
+						Customer newCus = new Customer(words[1], words[2], words[3], words[4], words[5] ,words[6]);
+						newCus.setID(Integer.parseInt(words[0]));
+						customers.put(newCus.getID(), newCus);
+					}
 				}
 				
 			}

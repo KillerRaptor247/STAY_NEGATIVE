@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Employee extends Customer{
 	
-	private static final AtomicInteger empCount = new AtomicInteger(0);
+	public static final AtomicInteger empCount = new AtomicInteger(0);
 	private int empId;
 	boolean isManager;
 

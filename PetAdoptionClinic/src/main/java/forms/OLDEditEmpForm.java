@@ -6,73 +6,50 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
-import javax.swing.table.DefaultTableModel;
 
 import dao.PetClinic;
 
-public class EditEmpForm extends Form implements ActionListener{
+public class OLDEditEmpForm extends Form implements ActionListener{
 	
 	JButton save;
 	JButton cancel;
-	JTextField idTF;
-	JTextField nameTF;
-	JTextField addressTF;
-	JTextField ageTF;
-	JTextField usernameTF;
-	JTextField passwordTF;
-	JTextField emailTF;
-	JCheckBox IsManagerTF;
-	
-	int row;
-	DefaultTableModel model;
 
-	EditEmpForm(PetClinic pc,int row, DefaultTableModel model) {
+	OLDEditEmpForm(PetClinic pc) {
 		super(pc);
-		this.row=row;
-		this.model=model;
-		System.out.println("editor created");
 		// TODO Auto-generated constructor stub
 	}
 	
 	public void createAndShowGUI() {
-		this.setTitle("Edit Employee");
+		this.setTitle("Edit Customer");
         this.setLocationRelativeTo(null);
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 
         JPanel panelForAll = new JPanel(new BorderLayout());
         JPanel panelForForm = new JPanel(new SpringLayout());
 
-        idTF = new JTextField(model.getValueAt(row, 0).toString(), 15);
+        JTextField idTF = new JTextField("1", 15);
         idTF.setEditable(false);
-        nameTF = new JTextField((String) model.getValueAt(row, 1), 15);
+        JTextField nameTF = new JTextField("Dante", 15);
         nameTF.setEditable(true);
-        addressTF = new JTextField((String) model.getValueAt(row, 2), 15);
+        JTextField addressTF = new JTextField("123 Baylor Street", 15);
         addressTF.setEditable(true);
-        ageTF = new JTextField(((String) model.getValueAt(row, 3)));
+        JTextField ageTF = new JTextField("24", 15);
         ageTF.setEditable(true);
-        usernameTF = new JTextField((String) model.getValueAt(row, 4), 15);
+        JTextField usernameTF = new JTextField("dantehart123", 15);
         usernameTF.setEditable(true);
-        passwordTF = new JTextField((String) model.getValueAt(row, 5), 15);
+        JTextField passwordTF = new JTextField("password", 15);
         passwordTF.setEditable(true);
-        emailTF = new JTextField((String) model.getValueAt(row, 6), 15);
-        emailTF.setEditable(true);
-        IsManagerTF = new JCheckBox();
-        IsManagerTF.setSelected((Boolean) model.getValueAt(row, 7));
-        
 
         JLabel nameLbl = new JLabel("Name:", JLabel.TRAILING);
         JLabel addressLbl = new JLabel("Address:", JLabel.TRAILING);
         JLabel ageLbl = new JLabel("Age:", JLabel.TRAILING);
         JLabel usernameLbl = new JLabel("Username:", JLabel.TRAILING);
         JLabel passwordLbl = new JLabel("Password:", JLabel.TRAILING);
-        JLabel emailLbl = new JLabel("Email:", JLabel.TRAILING);
         JLabel idLbl = new JLabel("Id:", JLabel.TRAILING);
-        JLabel IsManagerLbl = new JLabel("Is Manager:", JLabel.TRAILING);
         
         idLbl.setLabelFor(idTF);
         nameLbl.setLabelFor(nameTF);
@@ -80,8 +57,6 @@ public class EditEmpForm extends Form implements ActionListener{
         ageLbl.setLabelFor(ageTF);
         usernameLbl.setLabelFor(usernameTF);
         passwordLbl.setLabelFor(passwordTF);
-        emailLbl.setLabelFor(emailTF);
-        IsManagerLbl.setLabelFor(IsManagerTF);
 
         panelForForm.add(idLbl);
         panelForForm.add(idTF);
@@ -95,11 +70,8 @@ public class EditEmpForm extends Form implements ActionListener{
         panelForForm.add(usernameTF);
         panelForForm.add(passwordLbl);
         panelForForm.add(passwordTF);
-        panelForForm.add(IsManagerLbl);
-        panelForForm.add(IsManagerTF);
 
-
-        SpringUtilities.makeCompactGrid(panelForForm, 7, 2, 10, 10, 10, 10);
+        SpringUtilities.makeCompactGrid(panelForForm, 6, 2, 10, 10, 10, 10);
 
         JPanel panelForButton = new JPanel();
         save = new JButton("Save");
@@ -127,25 +99,11 @@ public class EditEmpForm extends Form implements ActionListener{
 		// TODO Auto-generated method stub
 		if(e.getSource().equals(save)) {
 			// perform save on employee DAO if valid
-			model.setValueAt(Integer.parseInt(idTF.getText()), row, 0);
-			model.setValueAt(nameTF.getText(), row, 1);
-			model.setValueAt(addressTF.getText(), row, 2);
-			model.setValueAt(Integer.parseInt(ageTF.getText()), row, 3);
-			model.setValueAt(usernameTF.getText(), row, 4);
-			model.setValueAt(passwordTF.getText(), row, 5);
-			model.setValueAt(emailTF.getText(), row, 6);
-			model.setValueAt(IsManagerTF.isSelected(), row, 7);
-			this.store.employeeDAO.editEmployee(Integer.parseInt(idTF.getText()),nameTF.getText(), addressTF.getText(), ageTF.getText(), usernameTF.getText(),
-					passwordTF.getText(), emailTF.getText(), IsManagerTF.isSelected());
-			
-			DisplayEmpForm form = new DisplayEmpForm(this.store);
-			form.createAndShowGUI();
-			this.dispose();
 		}
 		if(e.getSource().equals(cancel)) {
-			DisplayEmpForm form = new DisplayEmpForm(this.store);
-			form.createAndShowGUI();
+			// simply close the form
 			this.dispose();
+			// maybe create main here later for DAO
 		}
 		
 	}

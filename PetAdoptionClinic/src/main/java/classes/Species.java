@@ -4,7 +4,7 @@ public enum Species {
 	CAT("Cat"),
 	DOG("Dog");
 	
-	private String species;
+	protected String species;
 	
 	private Species(String spc) {
 		species = spc;

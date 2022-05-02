@@ -28,8 +28,8 @@ public class HomePage extends Form implements ActionListener{
 	JMenu createMenu;
 	JMenu editMenu;
 	JMenuItem SignOutItem;
-	JMenuItem ImportItem;
-	JMenuItem ExportItem;
+	JMenuItem importItem;
+	JMenuItem exportItem;
 	JMenuItem CreateEmpItem;
 	JMenuItem  CreateCusItem;
 	JMenuItem CreatePetItem;
@@ -73,12 +73,12 @@ public class HomePage extends Form implements ActionListener{
 		editMenu.getAccessibleContext().setAccessibleDescription("Edit Forms are here");
 		
 		SignOutItem = new JMenuItem("Sign Out");
-		ImportItem = new JMenuItem("Import Data");
-		ExportItem = new JMenuItem("Export Data");
+		importItem = new JMenuItem("Import Data");
+		exportItem = new JMenuItem("Export Data");
 		
 		fileMenu.add(SignOutItem);
-		fileMenu.add(ImportItem);
-		fileMenu.add(ExportItem);
+		fileMenu.add(importItem);
+		fileMenu.add(exportItem);
 		
 		CreateEmpItem = new JMenuItem("Create Employee");
 		CreateCusItem = new JMenuItem("Create Customer");
@@ -137,6 +137,18 @@ public class HomePage extends Form implements ActionListener{
 		displayButton.addActionListener(this);
 		SignOutItem.addActionListener(this);
 		checkoutButton.addActionListener(this);
+		importItem.addActionListener(this);
+		exportItem.addActionListener(this);
+		
+		// if the employee isn't a manager disable appropriate controls
+		if(!store.signedInEmployee.isManager()) {
+			CreateEmpItem.setEnabled(false);
+			CreateCusItem.setEnabled(false);
+			CreatePetItem.setEnabled(false);
+			EditPetItem.setEnabled(false);
+			EditCusItem.setEnabled(false);
+			EditEmpItem.setEnabled(false);
+		}
 		
 		
 		this.setTitle("Home Page");
@@ -153,39 +165,55 @@ public class HomePage extends Form implements ActionListener{
 		if (e.getSource().equals(displayButton)) {
             DisplayForm display = new DisplayForm(this.store);
             display.createAndShowGUI();
-	}
-		else if(e.getSource().equals(EditPetItem)) {
-			EditPetForm edit = new EditPetForm(this.store);
-			edit.createAndShowGUI();
+			this.dispose();
+	    }
+		else if(e.getSource().equals(importItem)) {
+			store.importData();
+			JOptionPane.showMessageDialog(this, "Data has been Imported!", "Import Data", JOptionPane.INFORMATION_MESSAGE);
+		}
+		else if(e.getSource().equals(exportItem)) {
+			store.exportData();
+			JOptionPane.showMessageDialog(this, "Data has been Exported!", "Export Data", JOptionPane.INFORMATION_MESSAGE);
 		}
 		else if(e.getSource().equals(SignOutItem)) {
-			this.dispose();
 	    	LoginFormEmployee form = new LoginFormEmployee(this.store);
 	    	form.createAndShowGUI();
+			this.dispose();
 		}
 		else if(e.getSource().equals(checkoutButton)) {
 			CheckoutForm form = new CheckoutForm(this.store);
 			form.createAndShowGUI();
+			this.dispose();
+		}
+		else if(e.getSource().equals(EditPetItem)) {
+			EditPetForm edit = new EditPetForm(this.store);
+			edit.createAndShowGUI();
+			this.dispose();
 		}
 		else if(e.getSource().equals(CreateEmpItem)) {
 			CreateEmpForm form = new CreateEmpForm(this.store);
 			form.createAndShowGUI();
+			this.dispose();
 		}
 		else if(e.getSource().equals(CreatePetItem)) {
 			CreatePetForm form = new CreatePetForm(this.store);
 			form.createAndShowGUI();
+			this.dispose();
 		}
 		else if(e.getSource().equals(CreateCusItem)) {
 			CreateCustForm form = new CreateCustForm(this.store);
 			form.createAndShowGUI();
+			this.dispose();
 		}
 		else if(e.getSource().equals(EditCusItem)) {
 			EditCustForm form = new EditCustForm(this.store);
 			form.createAndShowGUI();
+			this.dispose();
 		}
 		else if(e.getSource().equals(EditEmpItem)) {
-			EditEmpForm form = new EditEmpForm(this.store);
+			DisplayEmpForm form = new DisplayEmpForm(this.store);
 			form.createAndShowGUI();
+			this.dispose();
 		}
 	}
 

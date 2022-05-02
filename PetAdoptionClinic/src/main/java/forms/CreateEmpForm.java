@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import classes.Employee;
 import dao.PetClinic;
 
 public class CreateEmpForm extends Form implements ActionListener{
@@ -33,7 +34,7 @@ public class CreateEmpForm extends Form implements ActionListener{
 	JTextField empAddressTF;
 	JTextField empAgeTF;
 	JTextField empUsernameTF;
-	JPasswordField empPasswordPF;
+	JTextField empPasswordTF;
 	JTextField empEmailTF;
 	
 	//Buttons
@@ -62,24 +63,23 @@ public class CreateEmpForm extends Form implements ActionListener{
 		empPasswordLbl = new JLabel("Employee Password: ");
 		empEmailLbl = new JLabel("Employee Email: ");
 		
-		empIDTF = new JTextField("1", 20);
-		empNameTF = new JTextField("Dante", 20);
-		empAddressTF = new JTextField("123 Baylor Street", 20);
-		empAgeTF = new JTextField("24", 20);
-		empUsernameTF = new JTextField("dantehart", 20);
-		empPasswordPF = new JPasswordField("password", 20);
-		empEmailTF = new JTextField("dantehart@baylor.edu", 20);
+		empIDTF = new JTextField(Employee.empCount.toString(), 20);
+		empNameTF = new JTextField("", 20);
+		empAddressTF = new JTextField("", 20);
+		empAgeTF = new JTextField("", 20);
+		empUsernameTF = new JTextField("", 20);
+		empPasswordTF = new JTextField("", 20);
+		empEmailTF = new JTextField("", 20);
 		
 		// set non editable textfields
 		empIDTF.setEditable(false);
-		empPasswordPF.setEditable(false);
 		
 		empIDLbl.setLabelFor(empIDTF);
 		empNameLbl.setLabelFor(empNameTF);
 		empAddressLbl.setLabelFor(empAddressTF);
 		empAgeLbl.setLabelFor(empAddressTF);
 		empUserNameLbl.setLabelFor(empUsernameTF);
-		empPasswordLbl.setLabelFor(empPasswordPF);
+		empPasswordLbl.setLabelFor(empPasswordTF);
 		empEmailLbl.setLabelFor(empEmailTF);
 		
 		// add all labels and textfields to panel
@@ -94,7 +94,7 @@ public class CreateEmpForm extends Form implements ActionListener{
 		labelPanel.add(empUserNameLbl);
 		labelPanel.add(empUsernameTF);
 		labelPanel.add(empPasswordLbl);
-		labelPanel.add(empPasswordPF);
+		labelPanel.add(empPasswordTF);
 		labelPanel.add(empEmailLbl);
 		labelPanel.add(empEmailTF);
 		
@@ -136,20 +136,48 @@ public class CreateEmpForm extends Form implements ActionListener{
 		formPanel.add(radioPanel, BorderLayout.CENTER);
 		formPanel.add(buttonPanel, BorderLayout.SOUTH);
 		
+		
+		// if the store is empty, the current employee HAS to be a manager
+		if(this.store.isEmployeeEmpty()) {
+			managerTrue.setSelected(true);
+			managerFalse.setEnabled(false);
+		}
+		
 		formPanel.setOpaque(true);
 		this.add(formPanel);
 		this.pack();
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource().equals(createEmpSave)) {
-			// create employee and save it
-			System.out.println("Employee creation needed");
-			this.dispose();
+			// if any fields are empty display error message
+			if(empNameTF.getText().isEmpty() || empAddressTF.getText().isEmpty() || empAgeTF.getText().isEmpty() || empUsernameTF.getText().isEmpty() || empPasswordTF.getText().isEmpty() ||
+					empEmailTF.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(this, "Please leave no fields empty!", "Empty Fields Detected", JOptionPane.WARNING_MESSAGE);
+			}
+			else {
+				if(this.store.isEmployeeEmpty()) {
+					// create employee and save it
+					store.employeeDAO.addEmployee(empNameTF.getText(), empAddressTF.getText(), empAgeTF.getText(), empUsernameTF.getText(), empPasswordTF.getText(), empEmailTF.getText(),
+							managerTrue.isSelected());
+					LoginFormEmployee form = new LoginFormEmployee(this.store);
+					form.createAndShowGUI();
+					this.dispose();
+				}
+				else {
+					// create employee and save it
+					store.employeeDAO.addEmployee(empNameTF.getText(), empAddressTF.getText(), empAgeTF.getText(), empUsernameTF.getText(), empPasswordTF.getText(), empEmailTF.getText(),
+							managerTrue.isSelected());
+					HomePage form = new HomePage(this.store);
+					form.createAndShowGUI();
+					this.dispose();
+				}
+			}
 		}
 		if(e.getSource().equals(createEmpCancel)) {
 			System.out.println("Emplyoee creation cancelled");

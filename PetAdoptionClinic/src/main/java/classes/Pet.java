@@ -17,6 +17,14 @@ public class Pet {
 	public void setSpecies(Species species) {
 		this.species = species;
 	}
+	public void setSpecies(String species) {
+		if(species.equalsIgnoreCase("Dog")) {
+			this.species = Species.DOG;
+		}
+		else {
+			this.species = Species.CAT;
+		}
+	}
 
 	public Pet(String name, String breed,String age, Species species, Sex sex){
 		this.name = name;
@@ -30,6 +38,9 @@ public class Pet {
 	
 	public Pet(){
 		
+	}
+	public void setID(Integer id) {
+		this.ID = id;
 	}
 	public Integer getID() {
 		return ID;
@@ -58,4 +69,6 @@ public class Pet {
 	public void setSex(Sex sex) {
 		this.sex = sex;
 	}
+	
+	
 }

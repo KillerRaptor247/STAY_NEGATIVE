@@ -1,4 +1,7 @@
 package dao;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -58,7 +61,7 @@ public class PetDAO {
 			FileWriter writer = new FileWriter("PetDAO.dat", Boolean.TRUE);
 			for(Pet pet : pets.values()) {
 				writer.write(pet.getID() + "," + pet.getName() + "," + pet.getBreed() + "," + pet.getAge() + ","
-						+ pet.getSpecies() + pet.getSex() + "\n");
+						+ pet.getSpecies().toString() + "," +  pet.getSex().toString() + "\n");
 			}
 			writer.close();
 			
@@ -66,5 +69,32 @@ public class PetDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void importDAO() {
+		// first clear the DAO
+		pets.clear();
+		// if the file doesn't already exist create it
+		File dao = new File("petDAO.dat");
+		try {
+			if(!dao.createNewFile()) {
+				BufferedReader br = new BufferedReader(new FileReader(dao));
+				
+				String line;
+				while((line = br.readLine()) != null) {
+					// tokenize line and create customers, put them in the map
+					String [] words = line.split(",");
+					Pet newPet = new Pet(words[1], words[2], words[3], Species.valueOf(words[4]), Sex.valueOf(words[5]));
+					newPet.setID(Integer.parseInt(words[0]));
+					pets.put(newPet.getID(), newPet);
+				}
+				
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 }

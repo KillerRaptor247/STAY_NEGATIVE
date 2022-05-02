@@ -33,6 +33,11 @@ public class Customer {
 	public int getID() {
 		return custID;
 	}
+	
+	public void setID(int id) {
+		this.custID = id;
+		
+	}
 	public void setName(String name) {
 		this.name = name;
 	}
