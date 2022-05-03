@@ -15,7 +15,7 @@ import classes.Customer;
 public class CustomerDAO {
 	// declare collection of customers as map of maps to look up password that correlates to
 	// appropriate usernames
-	protected Map<Integer, Customer> customers;
+	public Map<Integer, Customer> customers;
 	
 	CustomerDAO(){
 		customers = new HashMap<Integer, Customer>();
@@ -29,11 +29,11 @@ public class CustomerDAO {
 		
 	}
 	
-	public void removeCustomer(Customer customer) {
+	public void removeCustomer(Integer ID) {
 		
 		// if we can find the customer, remove the customer
-		if(customers.get(customer.getID()) != null) {
-			customers.remove(customer.getID());
+		if(customers.get(ID) != null) {
+			customers.remove(ID);
 		}
 		
 	}
@@ -57,7 +57,7 @@ public class CustomerDAO {
 		// create file to append
 		
 		try {
-			FileWriter writer = new FileWriter("CustomerDAO.dat", Boolean.TRUE);
+			FileWriter writer = new FileWriter("CustomerDAO.dat", Boolean.FALSE);
 			for(Customer cus : customers.values()) {
 				writer.write(cus.getID() + "," + cus.getName() + "," + cus.getAddress() + "," + cus.getAge() + ","
 						+ cus.getUsername() + "," + cus.getPassword() + "," + cus.getEmail() + "\n");
@@ -73,6 +73,8 @@ public class CustomerDAO {
 	public void importDAO() {
 		// first clear the DAO
 		customers.clear();
+		// reset the ID count
+		Customer.custCount.set(0);
 		// if the file doesn't already exist create it
 		File dao = new File("CustomerDAO.dat");
 		try {

@@ -62,8 +62,9 @@ public class CreateEmpForm extends Form implements ActionListener{
 		empUserNameLbl = new JLabel("Employee Username: ");
 		empPasswordLbl = new JLabel("Employee Password: ");
 		empEmailLbl = new JLabel("Employee Email: ");
-		
-		empIDTF = new JTextField(Employee.empCount.toString(), 20);
+		Integer newID = Employee.empCount.get();
+		newID++;
+		empIDTF = new JTextField(newID.toString(), 20);
 		empNameTF = new JTextField("", 20);
 		empAddressTF = new JTextField("", 20);
 		empAgeTF = new JTextField("", 20);
@@ -180,7 +181,9 @@ public class CreateEmpForm extends Form implements ActionListener{
 			}
 		}
 		if(e.getSource().equals(createEmpCancel)) {
-			System.out.println("Emplyoee creation cancelled");
+			System.out.println("Employee creation cancelled");
+			HomePage form = new HomePage(this.store);
+			form.createAndShowGUI();
 			this.dispose();
 		}
 	}

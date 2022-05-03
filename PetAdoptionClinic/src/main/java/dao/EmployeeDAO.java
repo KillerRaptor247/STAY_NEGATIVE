@@ -59,7 +59,7 @@ public class EmployeeDAO {
 	public void export() {
 		// create file to append
 		try {
-			FileWriter writer = new FileWriter("EmployeeDAO.dat", Boolean.TRUE);
+			FileWriter writer = new FileWriter("EmployeeDAO.dat", Boolean.FALSE);
 			for(Employee emp : employees.values()) {
 				writer.write(emp.getID() + "," + emp.getName() + "," + emp.getAddress() + "," + emp.getAge() + ","
 						+ emp.getUsername() + "," + emp.getPassword() + "," + emp.getEmail() + "," + emp.isManager() + "\n");
@@ -75,6 +75,8 @@ public class EmployeeDAO {
 	public void importDAO() {
 		// first clear the DAO
 		employees.clear();
+		// reset the ID count
+		Employee.empCount.set(0);
 		// if the file doesn't already exist create it
 		File dao = new File("EmployeeDAO.dat");
 		try {

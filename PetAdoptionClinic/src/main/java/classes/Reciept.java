@@ -8,9 +8,18 @@ public class Reciept {
 	Reciept(){
 		sale = new Sale();
 	}
+	
+	Reciept(Sale s){
+		sale = s;
+	}
 
 	public Sale getSale() {
 		return sale;
+	}
+	
+	public void setSale(Sale s) {
+		sale = s;
+		
 	}
 	
 }

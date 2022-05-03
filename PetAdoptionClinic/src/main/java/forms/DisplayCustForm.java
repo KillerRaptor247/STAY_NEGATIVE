@@ -21,24 +21,23 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import classes.Employee;
+import classes.Customer;
 import dao.PetClinic;
 
-public class DisplayEmpForm extends Form implements ActionListener{
+public class DisplayCustForm extends Form implements ActionListener{
 
-	PetClinic pc;
-	DisplayEmpForm(PetClinic pc) {
+	DisplayCustForm(PetClinic pc) {
 		super(pc);
 		// TODO Auto-generated constructor stub
 	}
 
 	// declare JSwing components
 		JPanel panel = new JPanel(new GridBagLayout());
-		DefaultTableModel empModel = new DefaultTableModel(){
+		DefaultTableModel custModel = new DefaultTableModel(){
 		    Class[] types = new Class [] {
 		            //COL. TYPES ARE HERE!!!
-		            java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class,
-		            java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+		    		java.lang.Integer.class,java.lang.String.class, java.lang.String.class, java.lang.Integer.class,
+		            java.lang.String.class, java.lang.String.class, java.lang.String.class
 		        };
 		         
 		        @Override
@@ -48,11 +47,11 @@ public class DisplayEmpForm extends Form implements ActionListener{
 		    };;
 		GridBagLayout layout = new GridBagLayout();
 		GridBagConstraints gbc = new GridBagConstraints();
-		JTable empTable;
+		JTable custTable;
 		JPopupMenu popupMenu;
 		JMenuItem deleteItem;
 		JMenuItem editItem;
-		JScrollPane empPane;
+		JScrollPane custPane;
 		ImageIcon img;
 		JButton returnButton = new JButton("Return");
 		
@@ -74,34 +73,32 @@ public class DisplayEmpForm extends Form implements ActionListener{
 			img = new ImageIcon("dog-32-32.png");
 			this.setIconImage(img.getImage());
 			
-			welcomeMessage = new JLabel("Here Are Our Employees!");
-			empModel.addColumn("Employee ID");
-			empModel.addColumn("Name");
-			empModel.addColumn("Address");
-			empModel.addColumn("Age");
-			empModel.addColumn("Username");
-			empModel.addColumn("Password");
-			empModel.addColumn("Email");
-			empModel.addColumn("Is Manager");
-			
-			// populate model based on the employees size
-			for (Employee emp : store.employeeDAO.employees.values()) {
-				empModel.addRow(new Object[] {emp.getID(),emp.getName(), emp.getAddress(), emp.getAge(), emp.getUsername(), emp.getPassword(), emp.getEmail(), emp.isManager()} );
+			welcomeMessage = new JLabel("Here Are Our Customers!");
+			custModel.addColumn("Customer ID");
+			custModel.addColumn("Name");
+			custModel.addColumn("Address");
+			custModel.addColumn("Age");
+			custModel.addColumn("Username");
+			custModel.addColumn("Password");
+			custModel.addColumn("Email");
+			// populate model based on customer
+			for(Customer cus : store.customerDAO.customers.values()) {
+				custModel.addRow(new Object[] {cus.getID(), cus.getName(), cus.getAddress(), cus.getAge(), cus.getUsername(), cus.getPassword(), cus.getEmail()} );
 			}
 			
-			empTable = new JTable(empModel);
+			custTable = new JTable(custModel);
 			popupMenu = new JPopupMenu();
 			deleteItem = new JMenuItem("Delete");
 			editItem = new JMenuItem("Edit");
 			deleteItem.addActionListener(this);
 			editItem.addActionListener(this);
-			empPane = new JScrollPane(empTable);
-			empPane.setPreferredSize(new Dimension(500, 250));
+			custPane = new JScrollPane(custTable);
+			custPane.setPreferredSize(new Dimension(500, 250));
 			
 			popupMenu.add(deleteItem);
 			popupMenu.add(editItem);
 			
-			empTable.setComponentPopupMenu(popupMenu);
+			custTable.setComponentPopupMenu(popupMenu);
 			
 			panel.setLayout(layout);
 			gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -116,9 +113,9 @@ public class DisplayEmpForm extends Form implements ActionListener{
 			returnButton.addActionListener(this);
 			
 			add(panel, BorderLayout.CENTER);
-			add(empPane, BorderLayout.SOUTH);
+			add(custPane, BorderLayout.SOUTH);
 			add(returnButton, BorderLayout.PAGE_END);
-			this.setTitle("Display Employees");
+			this.setTitle("Display Customers");
 			setSize(510,500);
 			setLocationRelativeTo(null);
 			setVisible(true);
@@ -132,39 +129,33 @@ public class DisplayEmpForm extends Form implements ActionListener{
 				HomePage form = new HomePage(this.store);
 				form.createAndShowGUI();
 	            this.dispose();
-			}
-			else {
-				if(empTable.getSelectedRow() == -1) {
+			}else {
+				// ensure a row is selected
+				if(custTable.getSelectedRow() == -1) {
 					JOptionPane.showMessageDialog(this, "Please Select a Row in Table First!", "No Selection!", JOptionPane.ERROR_MESSAGE);
 				}
 				else {
 					JMenuItem menu = (JMenuItem) e.getSource();
 					if (menu == deleteItem) {
-					    int selectedRow = empTable.getSelectedRow();
-					    // ensure that a signed in employee cannot remove themselves
-					    if(store.signedInEmployee.getID() == Integer.parseInt(empModel.getValueAt(selectedRow, 0).toString())){
-					    	JOptionPane.showMessageDialog(this, "Selected Deletion Can't be signed in employee", 
-					    			"Error Employee Deletion", JOptionPane.ERROR_MESSAGE);
-					    }
-					    else {
-					    	 this.store.employeeDAO.removeEmployee(Integer.parseInt(empModel.getValueAt(selectedRow, 0).toString()));
-					    	 empModel.removeRow(selectedRow);
-					    	 JOptionPane.showMessageDialog(this, "Employee has been Removed!", "Employee Removal", JOptionPane.INFORMATION_MESSAGE);
-					    }
-					   
+					    int selectedRow = custTable.getSelectedRow();
+					    this.store.customerDAO.removeCustomer(Integer.parseInt(custModel.getValueAt(selectedRow, 0).toString()));
+					    custModel.removeRow(selectedRow);
+					    JOptionPane.showMessageDialog(this, "Customer has been Removed!", "Customer Removal", JOptionPane.INFORMATION_MESSAGE);
 			        } else if (menu == editItem) {
-						int selectedRow = empTable.getSelectedRow();
+						int selectedRow = custTable.getSelectedRow();
 						System.out.println(selectedRow);
-						EditEmpForm ed= new EditEmpForm(this.store,selectedRow,empModel);
+						EditCustForm ed=new EditCustForm(this.store,selectedRow,custModel);
 						ed.createAndShowGUI();
-						empModel.fireTableDataChanged();
+						custModel.fireTableDataChanged();
 						this.dispose();
 			        }
+					
 				}
 				
 			}
 		}
-			
+
+		     
 	
 
 }

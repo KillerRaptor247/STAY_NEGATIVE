@@ -97,19 +97,22 @@ public class CheckoutForm extends Form implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource().equals(returnButton)) {
+			HomePage form = new HomePage(this.store);
+			form.createAndShowGUI();
             this.dispose();
             }
 		if(e.getSource().equals(adoptButton)) {
 			int result = JOptionPane.showConfirmDialog(this, "Would You Like to Sign-In?", "Customer Login", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 			if(result == JOptionPane.YES_OPTION) {
+				// get petId to know which pet to grab
+				//int petId = Integer.parseInt(petTable.getValueAt(petTable.getSelectedRow(), 0).toString());
 				LoginFormCustomer customer = new LoginFormCustomer(this.store);
 				customer.createAndShowGUI();
 			}
 			else if(result == JOptionPane.NO_OPTION) {
 				System.out.println("NON SIGN IN ADOPT FORM");
-			}
-			else {
-				this.dispose();
+				store.signedInCustomer = null;
+				//RecieptForm form = new RecieptForm(this.store)
 			}
 		}
 		

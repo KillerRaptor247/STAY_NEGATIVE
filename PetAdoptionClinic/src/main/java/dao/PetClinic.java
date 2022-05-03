@@ -11,7 +11,7 @@ public class PetClinic {
 	public PetDAO petDAO = new PetDAO();
 	public EmployeeDAO employeeDAO = new EmployeeDAO();
 	public Employee signedInEmployee;
-	Customer signedInCustomer;
+	public Customer signedInCustomer;
 	
 	Set<Reciept> reciepts;
 	
@@ -21,7 +21,18 @@ public class PetClinic {
 		// load in databases
 	}
 	
-	public boolean login(String user, String pass) {
+	public boolean cusLogin(String user, String pass) {
+		for(Customer cus : customerDAO.customers.values()) {
+			if(cus.getUsername().equals(user) && cus.getPassword().equals(pass)) {
+					signedInCustomer = cus;
+					return true;
+			}
+		}
+		return false;
+		
+	}
+	
+	public boolean empLogin(String user, String pass) {
 		
 		for(Employee emp : employeeDAO.employees.values()) {
 			if(emp.getUsername().equals(user) && emp.getPassword().equals(pass)) {

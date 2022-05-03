@@ -18,12 +18,13 @@ public class LoginFormCustomer extends Form implements ActionListener {
 
 	// variables
     JButton signInButton;
-    // test fail button
-    JButton failButton;
+    // cancel button
+    JButton cancelButton;
     JPanel panel = new JPanel(new GridBagLayout());
     JLabel userLabel, passLabel;
     JLabel welcomeLabel;
-    JTextField userText, passText;
+    JTextField userText;
+    JPasswordField passText;
     GridBagLayout layout = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
 
@@ -63,7 +64,7 @@ public class LoginFormCustomer extends Form implements ActionListener {
         // create sign in button
         signInButton = new JButton("Sign in");
         // create fail button for error message
-        failButton = new JButton("Intentional Fault");
+        cancelButton = new JButton("Cancel");
 
         // create panel to put elements on
         panel.setLayout(layout);
@@ -99,9 +100,8 @@ public class LoginFormCustomer extends Form implements ActionListener {
         // add success sign-in button
         gbc.gridx = 0;
         gbc.gridy = 4;
-        panel.add(failButton, gbc);
-
-        // add test fail button DELETE THIS LATER YOU BOZO
+        panel.add(cancelButton, gbc);
+        
         gbc.gridx = 1;
         gbc.gridy = 4;
         panel.add(signInButton, gbc);
@@ -111,7 +111,7 @@ public class LoginFormCustomer extends Form implements ActionListener {
 
         //perform action on button click
         signInButton.addActionListener(this);
-        failButton.addActionListener(this);
+        cancelButton.addActionListener(this);
         setTitle("Login Form");
 
         pack();
@@ -124,15 +124,27 @@ public class LoginFormCustomer extends Form implements ActionListener {
 
     // define abstract method actionPerformed which will be called on button click
     public void actionPerformed(ActionEvent e) {
-        // get the values from the textfields
-        // and check if authentic
-        // but for now simple implementation
+    	// FULL LOGIN FUNCTIONALITY IMPLEMENTED
+    	// Only Login if user can be found
+    	
         if (e.getSource().equals(signInButton)) {
-            this.dispose();
-        } else if (e.getSource().equals(failButton)) {
-            System.out.println("WRONG PASSWORD INPUT: SYSTEM FAULT");
-        } else {
-            System.out.println("SYSTEM ERROR");
+        	if(this.store.cusLogin(userText.getText(), String.valueOf(passText.getPassword())))
+        	{
+        		// GO TO RECIEPT FORM
+        		// RecieptForm form = new RecieptForm(this.store)
+                this.dispose();
+        	}
+        	// if user cant be found throw error message
+        	else {
+        		JOptionPane.showMessageDialog(this, "Invalid Login! Please Try Again!",
+        				"Customer Login Fail!", JOptionPane.ERROR_MESSAGE);
+        	}
+        } 
+        else if(e.getSource().equals(cancelButton)) {
+        	this.store.signedInCustomer = null;
+        	//GO TO RECIEPT FORM AS GUEST
+        	// RecieptForm form = new RecieptForm(this.store)
+        	this.dispose();
         }
     }
 }

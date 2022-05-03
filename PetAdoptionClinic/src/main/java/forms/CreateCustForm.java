@@ -8,12 +8,15 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
+import classes.Customer;
+import classes.Employee;
 import dao.PetClinic;
 
 public class CreateCustForm extends Form implements ActionListener{
@@ -31,6 +34,7 @@ public class CreateCustForm extends Form implements ActionListener{
 	JPanel formPanel = new JPanel(new BorderLayout());
 	
 	// Label and Text Fields
+	JLabel cusIDLbl;
 	JLabel cusNameLbl;
 	JLabel cusAddressLbl;
 	JLabel cusAgeLbl;
@@ -38,11 +42,12 @@ public class CreateCustForm extends Form implements ActionListener{
 	JLabel cusPasswordLbl;
 	JLabel cusEmailLbl;
 	
+	JTextField cusIDTF;
 	JTextField cusNameTF;
 	JTextField cusAddressTF;
 	JTextField cusAgeTF;
 	JTextField cusUsernameTF;
-	JPasswordField cusPasswordPF;
+	JTextField cusPasswordTF;
 	JTextField cusEmailTF;
 	
 	//Buttons
@@ -55,31 +60,36 @@ public class CreateCustForm extends Form implements ActionListener{
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setTitle("Create Customer!");
 		// create labels and text fields
-		cusNameLbl = new JLabel("Custoemr Name: ");
+		cusIDLbl = new JLabel("Customer ID: ");
+		cusNameLbl = new JLabel("Customer Name: ");
 		cusAddressLbl = new JLabel("Customer Address: ");
 		cusAgeLbl = new JLabel("Customer Age: ");
 		cusUserNameLbl = new JLabel("Customer Username: ");
 		cusPasswordLbl = new JLabel("Customer Password: ");
 		cusEmailLbl = new JLabel("Customer Email: ");
 		
-		cusNameTF = new JTextField("Bobby", 20);
-		cusAddressTF = new JTextField("224 Cashion Ln", 20);
-		cusAgeTF = new JTextField("24", 20);
-		cusUsernameTF = new JTextField("bobbyBaylor", 20);
-		cusPasswordPF = new JPasswordField("password", 20);
-		cusEmailTF = new JTextField("dantehart@baylor.edu", 20);
+		cusIDTF = new JTextField(Customer.custCount.toString(), 20);
+		cusNameTF = new JTextField("", 20);
+		cusAddressTF = new JTextField("", 20);
+		cusAgeTF = new JTextField("", 20);
+		cusUsernameTF = new JTextField("", 20);
+		cusPasswordTF = new JTextField("", 20);
+		cusEmailTF = new JTextField("", 20);
 		
 		// set non editable textfields
-		cusPasswordPF.setEditable(false);
+		cusIDTF.setEditable(false);
+		
 		
 		cusNameLbl.setLabelFor(cusNameTF);
 		cusAddressLbl.setLabelFor(cusAddressTF);
 		cusAgeLbl.setLabelFor(cusAddressTF);
 		cusUserNameLbl.setLabelFor(cusUsernameTF);
-		cusPasswordLbl.setLabelFor(cusPasswordPF);
+		cusPasswordLbl.setLabelFor(cusPasswordTF);
 		cusEmailLbl.setLabelFor(cusEmailTF);
 		
 		// add all labels and textfields to panel
+		labelPanel.add(cusIDLbl);
+		labelPanel.add(cusIDTF);
 		labelPanel.add(cusNameLbl);
 		labelPanel.add(cusNameTF);
 		labelPanel.add(cusAddressLbl);
@@ -89,11 +99,11 @@ public class CreateCustForm extends Form implements ActionListener{
 		labelPanel.add(cusUserNameLbl);
 		labelPanel.add(cusUsernameTF);
 		labelPanel.add(cusPasswordLbl);
-		labelPanel.add(cusPasswordPF);
+		labelPanel.add(cusPasswordTF);
 		labelPanel.add(cusEmailLbl);
 		labelPanel.add(cusEmailTF);
 		
-		SpringUtilities.makeCompactGrid(labelPanel, 6, 2, 10, 10, 10, 10);
+		SpringUtilities.makeCompactGrid(labelPanel, 7, 2, 10, 10, 10, 10);
 		
 		// create save and cancel buttons
 		createCusSave = new JButton("Save");
@@ -122,11 +132,23 @@ public class CreateCustForm extends Form implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource().equals(createCusSave)) {
-			System.out.println("Should Create and Save Customer");
-			this.dispose();
+			// if any fields are empty display error message
+			if(cusNameTF.getText().isEmpty() || cusAddressTF.getText().isEmpty() || cusAgeTF.getText().isEmpty() || cusUsernameTF.getText().isEmpty() || cusPasswordTF.getText().isEmpty() ||
+					cusEmailTF.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(this, "Please leave no fields empty!", "Empty Fields Detected", JOptionPane.WARNING_MESSAGE);
+			}
+			else {
+				// create customer and save it
+				store.customerDAO.addCustomer(cusNameTF.getText(), cusAddressTF.getText(), cusAgeTF.getText(), cusUsernameTF.getText(), cusPasswordTF.getText(), cusEmailTF.getText());
+				HomePage form = new HomePage(this.store);
+				form.createAndShowGUI();
+				this.dispose();
+			}
 		}
 		if(e.getSource().equals(createCusCancel)) {
 			System.out.println("Customer Creation Cancelled");
+			HomePage form = new HomePage(this.store);
+			form.createAndShowGUI();
 			this.dispose();
 		}
 		

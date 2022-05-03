@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Customer {
 	
-	private static final AtomicInteger custCount = new AtomicInteger(0);
+	public static final AtomicInteger custCount = new AtomicInteger(0);
 	private Integer custID;
 	private String name;
 	private String address;

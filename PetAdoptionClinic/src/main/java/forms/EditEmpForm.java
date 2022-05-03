@@ -8,6 +8,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
@@ -95,11 +96,13 @@ public class EditEmpForm extends Form implements ActionListener{
         panelForForm.add(usernameTF);
         panelForForm.add(passwordLbl);
         panelForForm.add(passwordTF);
+        panelForForm.add(emailLbl);
+        panelForForm.add(emailTF);
         panelForForm.add(IsManagerLbl);
         panelForForm.add(IsManagerTF);
 
 
-        SpringUtilities.makeCompactGrid(panelForForm, 7, 2, 10, 10, 10, 10);
+        SpringUtilities.makeCompactGrid(panelForForm, 8, 2, 10, 10, 10, 10);
 
         JPanel panelForButton = new JPanel();
         save = new JButton("Save");
@@ -126,21 +129,28 @@ public class EditEmpForm extends Form implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource().equals(save)) {
-			// perform save on employee DAO if valid
-			model.setValueAt(Integer.parseInt(idTF.getText()), row, 0);
-			model.setValueAt(nameTF.getText(), row, 1);
-			model.setValueAt(addressTF.getText(), row, 2);
-			model.setValueAt(Integer.parseInt(ageTF.getText()), row, 3);
-			model.setValueAt(usernameTF.getText(), row, 4);
-			model.setValueAt(passwordTF.getText(), row, 5);
-			model.setValueAt(emailTF.getText(), row, 6);
-			model.setValueAt(IsManagerTF.isSelected(), row, 7);
-			this.store.employeeDAO.editEmployee(Integer.parseInt(idTF.getText()),nameTF.getText(), addressTF.getText(), ageTF.getText(), usernameTF.getText(),
-					passwordTF.getText(), emailTF.getText(), IsManagerTF.isSelected());
-			
-			DisplayEmpForm form = new DisplayEmpForm(this.store);
-			form.createAndShowGUI();
-			this.dispose();
+			// check if any values are empty
+			if(nameTF.getText().isEmpty() || addressTF.getText().isEmpty() || ageTF.getText().isEmpty() || usernameTF.getText().isEmpty() || passwordTF.getText().isEmpty() ||
+					emailTF.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(this, "Please leave no fields empty!", "Empty Fields Detected", JOptionPane.WARNING_MESSAGE);
+			}
+			else {
+				// perform save on employee DAO if valid
+				model.setValueAt(Integer.parseInt(idTF.getText()), row, 0);
+				model.setValueAt(nameTF.getText(), row, 1);
+				model.setValueAt(addressTF.getText(), row, 2);
+				model.setValueAt(Integer.parseInt(ageTF.getText()), row, 3);
+				model.setValueAt(usernameTF.getText(), row, 4);
+				model.setValueAt(passwordTF.getText(), row, 5);
+				model.setValueAt(emailTF.getText(), row, 6);
+				model.setValueAt(IsManagerTF.isSelected(), row, 7);
+				this.store.employeeDAO.editEmployee(Integer.parseInt(idTF.getText()),nameTF.getText(), addressTF.getText(), ageTF.getText(), usernameTF.getText(),
+						passwordTF.getText(), emailTF.getText(), IsManagerTF.isSelected());
+				JOptionPane.showMessageDialog(this, "Employee has been Saved!", "Employee Edit", JOptionPane.INFORMATION_MESSAGE);
+				DisplayEmpForm form = new DisplayEmpForm(this.store);
+				form.createAndShowGUI();
+				this.dispose();
+			}
 		}
 		if(e.getSource().equals(cancel)) {
 			DisplayEmpForm form = new DisplayEmpForm(this.store);

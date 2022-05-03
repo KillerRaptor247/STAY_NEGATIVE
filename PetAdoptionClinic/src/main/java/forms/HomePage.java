@@ -206,7 +206,7 @@ public class HomePage extends Form implements ActionListener{
 			this.dispose();
 		}
 		else if(e.getSource().equals(EditCusItem)) {
-			EditCustForm form = new EditCustForm(this.store);
+			DisplayCustForm form = new DisplayCustForm(this.store);
 			form.createAndShowGUI();
 			this.dispose();
 		}

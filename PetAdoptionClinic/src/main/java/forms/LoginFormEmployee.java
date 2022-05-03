@@ -16,7 +16,7 @@ import dao.PetClinic;
 
 public class LoginFormEmployee extends Form implements ActionListener {
 
-    LoginFormEmployee(PetClinic pc) {
+    public LoginFormEmployee(PetClinic pc) {
 		super(pc);
 		// TODO Auto-generated constructor stub
 	}
@@ -138,7 +138,7 @@ public class LoginFormEmployee extends Form implements ActionListener {
     	// only login if user can be found
         if (e.getSource().equals(signInButton)) {
         	
-        	if(this.store.login(userText.getText(), String.valueOf(passText.getPassword())))
+        	if(this.store.empLogin(userText.getText(), String.valueOf(passText.getPassword())))
         	{
                	HomePage form = new HomePage(this.store);
             	form.createAndShowGUI();

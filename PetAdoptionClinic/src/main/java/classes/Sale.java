@@ -3,27 +3,34 @@ package classes;
 import java.util.Calendar;
 
 public class Sale {
-	Double amount;
+	Customer signedInCustomer;
 	Calendar dateAdopted;
-	Double tax;
+	Employee signedInEmployee;
 	
-	public Double getAmount() {
-		return amount;
-	}
-	public void setAmount(Double amount) {
-		this.amount = amount;
-	}
+	
 	public Calendar getDateAdopted() {
 		return dateAdopted;
 	}
+	
 	public void setDateAdopted(Calendar dateAdopted) {
 		this.dateAdopted = dateAdopted;
 	}
-	public Double getTax() {
-		return tax;
+	
+	public void setEmployee(Employee emp) {
+		signedInEmployee = emp;
 	}
-	public void setTax(Double tax) {
-		this.tax = tax;
+	
+	public void setCustomer(Customer cus) {
+		signedInCustomer = cus;
+
+	}
+	
+	public Employee getEmployee() {
+		return signedInEmployee;
+	}
+	
+	public Customer getCustomer() {
+		return signedInCustomer;
 	}
 	
 }
