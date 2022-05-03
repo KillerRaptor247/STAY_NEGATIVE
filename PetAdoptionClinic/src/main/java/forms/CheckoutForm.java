@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import classes.Pet;
 import dao.PetClinic;
 
 public class CheckoutForm extends Form implements ActionListener{
@@ -52,12 +53,16 @@ public class CheckoutForm extends Form implements ActionListener{
 			this.setIconImage(img.getImage());
 			
 			welcomeMessage = new JLabel("Please Adopt a Pet!");
+			petModel.addColumn("ID");
 			petModel.addColumn("Name");
 			petModel.addColumn("Age");
-			petModel.addColumn("Birthday");
-			petModel.addColumn("Color");
-			petModel.addColumn("Weight");
-			petModel.addRow(new Object[] {"Boo-Boo","1 (Integer Please)", "2020.6.20", "Gold", "11 (lb Please)"} );
+			petModel.addColumn("Breed");
+			petModel.addColumn("Sex");
+			petModel.addColumn("Species");
+			
+			for(Pet p : store.petDAO.pets.values()) {
+				petModel.addRow(new Object[] {p.getID(), p.getName(), p.getAge(), p.getBreed(), p.getSex().toString(), p.getSpecies().toString()});
+			}
 			
 			petTable = new JTable(petModel);
 			petPane = new JScrollPane(petTable);
@@ -102,17 +107,26 @@ public class CheckoutForm extends Form implements ActionListener{
             this.dispose();
             }
 		if(e.getSource().equals(adoptButton)) {
-			int result = JOptionPane.showConfirmDialog(this, "Would You Like to Sign-In?", "Customer Login", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-			if(result == JOptionPane.YES_OPTION) {
-				// get petId to know which pet to grab
-				//int petId = Integer.parseInt(petTable.getValueAt(petTable.getSelectedRow(), 0).toString());
-				LoginFormCustomer customer = new LoginFormCustomer(this.store);
-				customer.createAndShowGUI();
+			if(petTable.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(this, "Please Select a Row in Table First!", "No Selection!", JOptionPane.ERROR_MESSAGE);
 			}
-			else if(result == JOptionPane.NO_OPTION) {
-				System.out.println("NON SIGN IN ADOPT FORM");
-				store.signedInCustomer = null;
-				//RecieptForm form = new RecieptForm(this.store)
+			else {
+				// get petId to know which pet to grab
+				int petId = Integer.parseInt(petTable.getValueAt(petTable.getSelectedRow(), 0).toString());
+				int result = JOptionPane.showConfirmDialog(this, "Would You Like to Sign-In?", "Customer Login", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if(result == JOptionPane.YES_OPTION) {
+					LoginFormCustomer customer = new LoginFormCustomer(this.store, petId);
+					customer.createAndShowGUI();
+					this.dispose();
+				}
+				else if(result == JOptionPane.NO_OPTION) {
+					System.out.println("NON SIGN IN ADOPT FORM");
+					store.signedInCustomer = null;
+					RecieptForm form = new RecieptForm(this.store, petId);
+					form.createAndShowGUI();
+					this.dispose();
+				}
+				
 			}
 		}
 		

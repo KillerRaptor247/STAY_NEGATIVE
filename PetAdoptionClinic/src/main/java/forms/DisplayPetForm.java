@@ -16,9 +16,9 @@ import javax.swing.table.DefaultTableModel;
 import classes.Pet;
 import dao.PetClinic;
 
-public class DisplayForm extends Form implements ActionListener {
+public class DisplayPetForm extends Form implements ActionListener {
 	
-	DisplayForm(PetClinic pc) {
+	DisplayPetForm(PetClinic pc) {
 		super(pc);
 		// TODO Auto-generated constructor stub
 	}

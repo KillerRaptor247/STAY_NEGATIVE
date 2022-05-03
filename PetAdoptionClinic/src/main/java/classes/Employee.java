@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Employee extends Customer{
 	
 	public static final AtomicInteger empCount = new AtomicInteger(0);
-	private int empId;
+	private Integer empId;
 	boolean isManager;
 
 	public Employee(String name, String address, String age, String username, String password, String email,
@@ -19,7 +19,7 @@ public class Employee extends Customer{
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getID() {
+	public Integer getID() {
 		return empId;
 	}
 	public boolean isManager() {

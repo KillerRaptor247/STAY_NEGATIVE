@@ -13,7 +13,7 @@ public class PetClinic {
 	public Employee signedInEmployee;
 	public Customer signedInCustomer;
 	
-	Set<Reciept> reciepts;
+	public Set<Reciept> reciepts;
 	
 	public PetClinic(){
 		// create reciepts
@@ -94,6 +94,12 @@ public class PetClinic {
 		
 		// might not need this
 		return new Pet();
+	}
+
+	public void addReciept(Reciept newReciept) {
+		// TODO Auto-generated method stub
+		reciepts.add(newReciept);
+		
 	}
 	
 	

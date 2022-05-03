@@ -3,16 +3,25 @@ package classes;
 import java.util.Calendar;
 
 public class Sale {
+	
+	public Sale(Pet p, Customer c, Employee e, String d) {
+		adoptedPet = p;
+		signedInCustomer = c;
+		signedInEmployee = e;
+		dateAdopted = d;
+	}
+	
+	Pet adoptedPet;
 	Customer signedInCustomer;
-	Calendar dateAdopted;
+	String dateAdopted;
 	Employee signedInEmployee;
 	
 	
-	public Calendar getDateAdopted() {
+	public String getDateAdopted() {
 		return dateAdopted;
 	}
 	
-	public void setDateAdopted(Calendar dateAdopted) {
+	public void setDateAdopted(String dateAdopted) {
 		this.dateAdopted = dateAdopted;
 	}
 	

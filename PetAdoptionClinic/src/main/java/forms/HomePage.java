@@ -163,7 +163,7 @@ public class HomePage extends Form implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource().equals(displayButton)) {
-            DisplayForm display = new DisplayForm(this.store);
+            DisplayPetForm display = new DisplayPetForm(this.store);
             display.createAndShowGUI();
 			this.dispose();
 	    }
@@ -186,7 +186,7 @@ public class HomePage extends Form implements ActionListener{
 			this.dispose();
 		}
 		else if(e.getSource().equals(EditPetItem)) {
-			DisplayForm edit = new DisplayForm(this.store);
+			DisplayPetForm edit = new DisplayPetForm(this.store);
 			edit.createAndShowGUI();
 			this.dispose();
 		}

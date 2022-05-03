@@ -156,13 +156,13 @@ public class EditPetForm extends Form implements ActionListener{
 				this.store.petDAO.editPet(Integer.parseInt(idTF.getText()), nameTF.getText(), ageTF.getText(), breedTF.getText(), sp, sex);
 				
 				JOptionPane.showMessageDialog(this, "Pet has been Saved!", "Pet Edit", JOptionPane.INFORMATION_MESSAGE);
-				DisplayForm form = new DisplayForm(this.store);
+				DisplayPetForm form = new DisplayPetForm(this.store);
 				form.createAndShowGUI();
 				this.dispose();
 			}
 		}
 		if(e.getSource().equals(cancel)) {
-			DisplayForm form = new DisplayForm(this.store);
+			DisplayPetForm form = new DisplayPetForm(this.store);
 			form.createAndShowGUI();
 			this.dispose();
 		}

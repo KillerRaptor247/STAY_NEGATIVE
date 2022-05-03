@@ -9,10 +9,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginChoose extends Form implements ActionListener {
+
+// THIS CLASS IS NO LONGER NEEDED FOR TESTING FUNCTIONALITY
+// IT HAS BEEN REPLACED BY LOGIN EMPLOYEE AND LOGIN CUSTOMER
+// THIS FILE IS HERE FOR RECORDS ONLY AND HENCEFORTH BEEN DEPRECATED
+public class OUTDATEDLoginChoose extends Form implements ActionListener {
 	
     
-    public LoginChoose(PetClinic pc) {
+    public OUTDATEDLoginChoose(PetClinic pc) {
 		super(pc);
 		// TODO Auto-generated constructor stub
 	}
@@ -52,7 +56,7 @@ public class LoginChoose extends Form implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-	        if (e.getSource().equals(customerButton)) {
+	        /*if (e.getSource().equals(customerButton)) {
 	        	System.out.println("CUSTOMER ALERT");
 	            LoginFormCustomer loginFormCustomer = new LoginFormCustomer(this.store);
 	            loginFormCustomer.createAndShowGUI();
@@ -66,7 +70,7 @@ public class LoginChoose extends Form implements ActionListener {
 	            
 	        } else {
 	            System.out.println(e.getSource());
-	        }
+	        }*/
 		
 	}
 

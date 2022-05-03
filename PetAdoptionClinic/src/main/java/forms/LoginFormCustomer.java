@@ -11,12 +11,13 @@ import java.awt.event.ActionListener;
 
 public class LoginFormCustomer extends Form implements ActionListener {
 
-    LoginFormCustomer(PetClinic pc) {
+    LoginFormCustomer(PetClinic pc, Integer petID) {
 		super(pc);
-		// TODO Auto-generated constructor stub
+		this.petID = petID;
 	}
 
 	// variables
+    Integer petID;
     JButton signInButton;
     // cancel button
     JButton cancelButton;
@@ -131,7 +132,8 @@ public class LoginFormCustomer extends Form implements ActionListener {
         	if(this.store.cusLogin(userText.getText(), String.valueOf(passText.getPassword())))
         	{
         		// GO TO RECIEPT FORM
-        		// RecieptForm form = new RecieptForm(this.store)
+    			RecieptForm form = new RecieptForm(this.store, petID);
+    			form.createAndShowGUI();
                 this.dispose();
         	}
         	// if user cant be found throw error message
@@ -142,8 +144,11 @@ public class LoginFormCustomer extends Form implements ActionListener {
         } 
         else if(e.getSource().equals(cancelButton)) {
         	this.store.signedInCustomer = null;
+    		JOptionPane.showMessageDialog(this, "Login Cancelled! Guest Adoption Selected",
+    				"Customer Login Cancelled!", JOptionPane.WARNING_MESSAGE);
         	//GO TO RECIEPT FORM AS GUEST
-        	// RecieptForm form = new RecieptForm(this.store)
+			RecieptForm form = new RecieptForm(this.store, petID);
+			form.createAndShowGUI();
         	this.dispose();
         }
     }

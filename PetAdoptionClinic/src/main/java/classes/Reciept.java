@@ -5,11 +5,11 @@ public class Reciept {
 	Sale sale;
 	
 	// put loaded constructor to pass for sale
-	Reciept(){
-		sale = new Sale();
+	public Reciept(){
+		
 	}
 	
-	Reciept(Sale s){
+	public Reciept(Sale s){
 		sale = s;
 	}
 

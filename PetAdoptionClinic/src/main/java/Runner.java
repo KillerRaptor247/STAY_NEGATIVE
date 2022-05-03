@@ -9,7 +9,7 @@ public class Runner {
     	PetClinic mainStore = new PetClinic();
     	// load in mainStores
     	mainStore.importData();
-        LoginChoose login = new LoginChoose(mainStore);
+        LoginFormEmployee login = new LoginFormEmployee(mainStore);
         login.createAndShowGUI();
         //EditForm editForm = new EditForm();
         //editForm.createAndShowGui();
