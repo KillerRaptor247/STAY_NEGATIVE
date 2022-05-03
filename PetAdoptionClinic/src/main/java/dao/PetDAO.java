@@ -12,7 +12,7 @@ import java.util.Set;
 import classes.*;
 
 public class PetDAO {
-	protected Map<Integer, Pet> pets;
+	public Map<Integer, Pet> pets;
 	
 	PetDAO(){
 		pets = new HashMap<Integer,Pet>();
@@ -32,10 +32,10 @@ public class PetDAO {
 		
 	}
 	
-	public void removePet(Pet pet) {
+	public void removePet(Integer id) {
 		// if we can find a pet, remove it
-		if(pets.get(pet.getID()) != null) {
-			pets.remove(pet.getID());
+		if(pets.get(id) != null) {
+			pets.remove(id);
 		}
 		
 	}

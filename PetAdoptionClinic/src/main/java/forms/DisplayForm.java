@@ -1,4 +1,5 @@
 package forms;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -12,6 +13,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import classes.Pet;
 import dao.PetClinic;
 
 public class DisplayForm extends Form implements ActionListener {
@@ -27,6 +29,9 @@ public class DisplayForm extends Form implements ActionListener {
 	GridBagLayout layout = new GridBagLayout();
 	GridBagConstraints gbc = new GridBagConstraints();
 	JTable petTable;
+	JPopupMenu popupMenu;
+	JMenuItem deleteItem;
+	JMenuItem editItem;
 	JScrollPane petPane;
 	ImageIcon img;
 	JButton returnButton = new JButton("Return");
@@ -50,16 +55,30 @@ public class DisplayForm extends Form implements ActionListener {
 		this.setIconImage(img.getImage());
 		
 		welcomeMessage = new JLabel("Here Are Our Pets!");
+		petModel.addColumn("Id");
 		petModel.addColumn("Name");
 		petModel.addColumn("Age");
-		petModel.addColumn("Birthday");
-		petModel.addColumn("Color");
-		petModel.addColumn("Weight");
-		petModel.addRow(new Object[] {"Boo-Boo","1 (Integer Please)", "2020.6.20", "Gold", "11 (lb Please)"} );
+		petModel.addColumn("Breed");
+		petModel.addColumn("Sex");
+		petModel.addColumn("Species");
+		
+		for(Pet p : store.petDAO.pets.values()) {
+			petModel.addRow(new Object[] {p.getID(), p.getName(), p.getAge(), p.getBreed(), p.getSex().toString(), p.getSpecies().toString()});
+		}
 		
 		petTable = new JTable(petModel);
+		popupMenu = new JPopupMenu();
+		deleteItem = new JMenuItem("Delete");
+		editItem = new JMenuItem("Edit");
+		deleteItem.addActionListener(this);
+		editItem.addActionListener(this);
 		petPane = new JScrollPane(petTable);
 		petPane.setPreferredSize(new Dimension(500, 250));
+		
+		popupMenu.add(deleteItem);
+		popupMenu.add(editItem);
+		
+		petTable.setComponentPopupMenu(popupMenu);
 		
 		panel.setLayout(layout);
 		gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -86,8 +105,31 @@ public class DisplayForm extends Form implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource().equals(returnButton)) {
+			HomePage form = new HomePage(this.store);
+			form.createAndShowGUI();
             this.dispose();
-	}
+		}
+		else {
+			if(petTable.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(this, "Please Select a Row in Table First!", "No Selection!", JOptionPane.ERROR_MESSAGE);
+			}
+			else {
+				JMenuItem menu = (JMenuItem) e.getSource();
+				if (menu == deleteItem) {
+				    int selectedRow = petTable.getSelectedRow();
+				    this.store.petDAO.removePet(Integer.parseInt(petModel.getValueAt(selectedRow, 0).toString()));
+				    petModel.removeRow(selectedRow);
+				    JOptionPane.showMessageDialog(this, "Pet has been Removed!", "Pet Removal", JOptionPane.INFORMATION_MESSAGE);
+		        } else if (menu == editItem) {
+					int selectedRow = petTable.getSelectedRow();
+					EditPetForm ed= new EditPetForm(this.store,selectedRow,petModel);
+					ed.createAndShowGUI();
+					petModel.fireTableDataChanged();
+					this.dispose();
+		        }
+			}
+			
+		}
 	}
 
 }

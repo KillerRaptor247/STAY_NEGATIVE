@@ -186,7 +186,7 @@ public class HomePage extends Form implements ActionListener{
 			this.dispose();
 		}
 		else if(e.getSource().equals(EditPetItem)) {
-			EditPetForm edit = new EditPetForm(this.store);
+			DisplayForm edit = new DisplayForm(this.store);
 			edit.createAndShowGUI();
 			this.dispose();
 		}
