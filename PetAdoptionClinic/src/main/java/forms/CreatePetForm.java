@@ -1,6 +1,8 @@
 package forms;
 import javax.swing.*;
 
+import classes.Sex;
+import classes.Species;
 import dao.PetClinic;
 
 import java.awt.*;
@@ -14,6 +16,12 @@ public class CreatePetForm extends Form implements ActionListener{
 	JButton save;
 	JButton cancel;
 
+	JTextField idTF;
+	JTextField nameTF;
+	JTextField ageTF;
+	JTextField breedTF;
+	
+	JRadioButton male, female, dog, cat;
 
     CreatePetForm(PetClinic pc) {
 		super(pc);
@@ -33,27 +41,23 @@ public class CreatePetForm extends Form implements ActionListener{
         JPanel panelForForm = new JPanel(new SpringLayout());
 
         
-        JTextField idTF = new JTextField("1");
+        idTF = new JTextField("1");
         idTF.setEditable(false);
-        JTextField nameTF = new JTextField("e.g. Boo-Boo", 15);
+        nameTF = new JTextField(15);
         nameTF.setEditable(true);
-        JTextField ageTF = new JTextField("e.g. 1 (Integer Please)", 15);
+        ageTF = new JTextField(15);
         ageTF.setEditable(true);
-        JTextField birthdayTF = new JTextField("e.g. 2020.6.20", 15);
-        birthdayTF.setEditable(true);
-        JTextField breedTF = new JTextField("e.g. Tabby", 15);
+        breedTF = new JTextField(15);
         breedTF.setEditable(true);
         
         JLabel idLbl = new JLabel("ID:", JLabel.TRAILING);
         JLabel nameLbl = new JLabel("Name:", JLabel.TRAILING);
         JLabel ageLbl = new JLabel("Age:", JLabel.TRAILING);
-        JLabel birthdayLbl = new JLabel("Birthday:", JLabel.TRAILING);
         JLabel breedLbl = new JLabel("Breed:", JLabel.TRAILING);
 
         idLbl.setLabelFor(idTF);
         nameLbl.setLabelFor(nameTF);
         ageLbl.setLabelFor(ageTF);
-        birthdayLbl.setLabelFor(birthdayTF);
         breedLbl.setLabelFor(breedTF);
 
         
@@ -63,20 +67,18 @@ public class CreatePetForm extends Form implements ActionListener{
         panelForForm.add(nameTF);
         panelForForm.add(ageLbl);
         panelForForm.add(ageTF);
-        panelForForm.add(birthdayLbl);
-        panelForForm.add(birthdayTF);
         panelForForm.add(breedLbl);
         panelForForm.add(breedTF);
 
-        SpringUtilities.makeCompactGrid(panelForForm, 5, 2, 10, 10, 10, 10);
+        SpringUtilities.makeCompactGrid(panelForForm, 4, 2, 10, 10, 10, 10);
 
         JPanel panelForCheckbox = new JPanel(new SpringLayout());
         JLabel genderLbl = new JLabel("Gender:", JLabel.TRAILING);
-        JRadioButton male = new JRadioButton("Male");
-        JRadioButton female = new JRadioButton("Female");
+        male = new JRadioButton("Male");
+        female = new JRadioButton("Female");
         JLabel speciesLbl = new JLabel("Species:", JLabel.TRAILING);
-        JRadioButton cat = new JRadioButton("Cat");
-        JRadioButton dog = new JRadioButton("Dog");
+        cat = new JRadioButton("Cat");
+        dog = new JRadioButton("Dog");
 
         ButtonGroup genderGroup = new ButtonGroup();
         genderGroup.add(male);
@@ -128,11 +130,33 @@ public class CreatePetForm extends Form implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource().equals(save)) {
-			System.out.println("Pet Should Be Created and Saved");
-			this.dispose();
+			if(nameTF.getText().isEmpty() || ageTF.getText().isEmpty() || breedTF.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(this, "Please leave no fields empty!", "Empty Fields Detected", JOptionPane.WARNING_MESSAGE);
+			}else {
+				Sex sex;
+				Species sp;
+				
+				if(male.isSelected()) {
+					sex = Sex.MALE;
+				}else {
+					sex = Sex.FEMALE;
+				}
+				if(dog.isSelected()) {
+					sp = Species.DOG;
+				}else {
+					sp = Species.CAT;
+				}
+				
+				store.petDAO.addPet(nameTF.getText(), ageTF.getText(), breedTF.getText(), sp, sex);
+				
+				HomePage form = new HomePage(this.store);
+				form.createAndShowGUI();
+				this.dispose();
+			}
 		}
 		if(e.getSource().equals(cancel)) {
-			System.out.println("Pet Creation Cancelled");
+			HomePage form = new HomePage(this.store);
+			form.createAndShowGUI();
 			this.dispose();
 		}
 	}

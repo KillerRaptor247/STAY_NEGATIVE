@@ -26,7 +26,7 @@ public class Pet {
 		}
 	}
 
-	public Pet(String name, String breed,String age, Species species, Sex sex){
+	public Pet(String name, String age,String breed, Species species, Sex sex){
 		this.name = name;
 		this.age = age;
 		this.breed = breed;

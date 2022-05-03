@@ -1,6 +1,9 @@
 package forms;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
+import classes.Sex;
+import classes.Species;
 import dao.PetClinic;
 
 import java.awt.*;
@@ -14,8 +17,20 @@ public class EditPetForm extends Form implements ActionListener{
 	JButton save;
 	JButton cancel;
 	
-    EditPetForm(PetClinic pc) {
+	JTextField idTF;
+	JTextField nameTF;
+	JTextField ageTF;
+	JTextField breedTF;
+	
+	JRadioButton male, female, dog, cat;
+	
+	int row;
+	DefaultTableModel model;
+	
+    EditPetForm(PetClinic pc, int row, DefaultTableModel model) {
 		super(pc);
+		this.row = row;
+		this.model = model;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -27,26 +42,22 @@ public class EditPetForm extends Form implements ActionListener{
         JPanel panelForAll = new JPanel(new BorderLayout());
         JPanel panelForForm = new JPanel(new SpringLayout());
 
-        JTextField idTF = new JTextField("1", 15);
+        idTF = new JTextField(model.getValueAt(row, 0).toString(), 15);
         idTF.setEditable(false);
-        JTextField nameTF = new JTextField("e.g Boo-Boo", 15);
+        nameTF = new JTextField(model.getValueAt(row, 1).toString(), 15);
         nameTF.setEditable(true);
-        JTextField ageTF = new JTextField("e.g. 1", 15);
+        ageTF = new JTextField(model.getValueAt(row, 2).toString(), 15);
         ageTF.setEditable(true);
-        JTextField birthdayTF = new JTextField("e.g. 2020.6.20", 15);
-        birthdayTF.setEditable(true);
-        JTextField breedTF = new JTextField("e.g. Tabby", 15);
+        breedTF = new JTextField(model.getValueAt(row, 3).toString(), 15);
         breedTF.setEditable(true);
 
         JLabel idLbl = new JLabel("Id:", JLabel.TRAILING);
         JLabel nameLbl = new JLabel("Name:", JLabel.TRAILING);
         JLabel ageLbl = new JLabel("Age:", JLabel.TRAILING);
-        JLabel birthdayLbl = new JLabel("Birthday:", JLabel.TRAILING);
         JLabel breedLbl = new JLabel("Breed:", JLabel.TRAILING);
 
         nameLbl.setLabelFor(nameTF);
         ageLbl.setLabelFor(ageTF);
-        birthdayLbl.setLabelFor(birthdayTF);
         idLbl.setLabelFor(idTF);
         breedLbl.setLabelFor(breedTF);
 
@@ -56,20 +67,18 @@ public class EditPetForm extends Form implements ActionListener{
         panelForForm.add(nameTF);
         panelForForm.add(ageLbl);
         panelForForm.add(ageTF);
-        panelForForm.add(birthdayLbl);
-        panelForForm.add(birthdayTF);
         panelForForm.add(breedLbl);
         panelForForm.add(breedTF);
 
-        SpringUtilities.makeCompactGrid(panelForForm, 5, 2, 10, 10, 10, 10);
+        SpringUtilities.makeCompactGrid(panelForForm, 4, 2, 10, 10, 10, 10);
 
         JPanel panelForCheckbox = new JPanel(new SpringLayout());
         JLabel genderLbl = new JLabel("Gender:", JLabel.TRAILING);
-        JRadioButton male = new JRadioButton("Male");
-        JRadioButton female = new JRadioButton("Female");
+        male = new JRadioButton("Male");
+        female = new JRadioButton("Female");
         JLabel speciesLbl = new JLabel("Species:", JLabel.TRAILING);
-        JRadioButton cat = new JRadioButton("Cat");
-        JRadioButton dog = new JRadioButton("Dog");
+        cat = new JRadioButton("Cat");
+        dog = new JRadioButton("Dog");
 
         ButtonGroup genderGroup = new ButtonGroup();
         genderGroup.add(male);
@@ -119,11 +128,42 @@ public class EditPetForm extends Form implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource().equals(save)) {
-			System.out.println("Pet should be updated");
-			this.dispose();
+			if(nameTF.getText().isEmpty() || ageTF.getText().isEmpty() || breedTF.getText().isEmpty()){
+				JOptionPane.showMessageDialog(this, "Please leave no fields empty!", "Empty Fields Detected", JOptionPane.WARNING_MESSAGE);
+			}else {
+				Sex sex;
+				Species sp;
+				
+				model.setValueAt(nameTF.getText(), row, 1);
+				model.setValueAt(ageTF.getText(), row, 2);
+				model.setValueAt(breedTF.getText(), row, 3);
+				
+				if(male.isSelected()) {
+					model.setValueAt("Male", row, 4);
+					sex = Sex.MALE;
+				}else {
+					model.setValueAt("Female", row, 4);
+					sex = Sex.FEMALE;
+				}
+				if(dog.isSelected()) {
+					model.setValueAt("Dog", row, 5);
+					sp = Species.DOG;
+				}else {
+					model.setValueAt("Cat", row, 5);
+					sp = Species.CAT;
+				}
+				
+				this.store.petDAO.editPet(Integer.parseInt(idTF.getText()), nameTF.getText(), ageTF.getText(), breedTF.getText(), sp, sex);
+				
+				JOptionPane.showMessageDialog(this, "Pet has been Saved!", "Pet Edit", JOptionPane.INFORMATION_MESSAGE);
+				DisplayForm form = new DisplayForm(this.store);
+				form.createAndShowGUI();
+				this.dispose();
+			}
 		}
 		if(e.getSource().equals(cancel)) {
-			System.out.println("Pet editing cancelled");
+			DisplayForm form = new DisplayForm(this.store);
+			form.createAndShowGUI();
 			this.dispose();
 		}
 	}
