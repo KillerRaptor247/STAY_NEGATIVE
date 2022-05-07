@@ -6,18 +6,12 @@ import forms.*;
  */
 public class Runner {
     public static void main(String[] args) {
+    	// create the store
     	PetClinic mainStore = new PetClinic();
     	// load in mainStores
     	mainStore.importData();
         LoginFormEmployee login = new LoginFormEmployee(mainStore);
         login.createAndShowGUI();
-        //EditForm editForm = new EditForm();
-        //editForm.createAndShowGui();
-    	
-    	//HomePage form = new HomePage();
-    	//form.createAndShowGUI();
-    	
-    	//LoginFormEmployee form = new LoginFormEmployee();
-    	//form.createAndShowGUI();
+
     }
 }

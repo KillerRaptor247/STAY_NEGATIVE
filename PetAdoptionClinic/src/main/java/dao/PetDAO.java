@@ -12,12 +12,14 @@ import java.util.Set;
 import classes.*;
 
 public class PetDAO {
+	// map pet id to a pet
 	public Map<Integer, Pet> pets;
 	
 	PetDAO(){
 		pets = new HashMap<Integer,Pet>();
 	}
 	
+	// return size of collection
 	public int getSize() {
 		return pets.size();
 	}

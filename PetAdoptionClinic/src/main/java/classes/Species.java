@@ -1,5 +1,6 @@
 package classes;
 
+// enum for Species member variable for Pet
 public enum Species {
 	CAT("Cat"),
 	DOG("Dog");

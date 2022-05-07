@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 public class Sale {
 	
+	// parameterized constructor
 	public Sale(Pet p, Customer c, Employee e, String d) {
 		adoptedPet = p;
 		signedInCustomer = c;
@@ -11,12 +12,14 @@ public class Sale {
 		dateAdopted = d;
 	}
 	
+	// member variables for sale
 	Pet adoptedPet;
 	Customer signedInCustomer;
 	String dateAdopted;
 	Employee signedInEmployee;
 	
 	
+	// basic getters and setters
 	public String getDateAdopted() {
 		return dateAdopted;
 	}

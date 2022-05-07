@@ -1,5 +1,6 @@
 package classes;
 
+// enum class for sex member variable
 public enum Sex {
 	MALE("Male"),
 	FEMALE("Female");

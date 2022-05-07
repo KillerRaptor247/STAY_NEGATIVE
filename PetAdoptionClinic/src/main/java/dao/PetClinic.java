@@ -26,12 +26,14 @@ public class PetClinic {
 	}
 
 	public boolean cusLogin(String user, String pass) {
+		// look for all the customers and if we find a password return true
 		for (Customer cus : customerDAO.customers.values()) {
 			if (cus.getUsername().equals(user) && cus.getPassword().equals(pass)) {
 				signedInCustomer = cus;
 				return true;
 			}
 		}
+		//otherwise return false
 		return false;
 
 	}

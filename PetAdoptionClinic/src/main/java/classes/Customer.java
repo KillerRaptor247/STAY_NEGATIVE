@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Customer {
 	
+	//declare member variables
 	public static final AtomicInteger custCount = new AtomicInteger(0);
 	private Integer custID;
 	private String name;
@@ -13,11 +14,12 @@ public class Customer {
 	private String password;
 	private String email;
 	
+	// default constructor
 	public Customer() {
 		
 	}
 	
-	
+	// parameterized constructor
 	public Customer(String name, String address, String age, String username, String password, String email) {
 		this.name = name;
 		this.address = address;
@@ -27,6 +29,8 @@ public class Customer {
 		this.email = email;
 		this.custID = custCount.incrementAndGet();
 	}
+	
+	// essential getters and setters
 	public String getName() {
 		return name;
 	}
