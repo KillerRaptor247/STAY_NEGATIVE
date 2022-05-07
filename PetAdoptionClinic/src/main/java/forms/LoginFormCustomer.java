@@ -132,7 +132,7 @@ public class LoginFormCustomer extends Form implements ActionListener {
         	if(this.store.cusLogin(userText.getText(), String.valueOf(passText.getPassword())))
         	{
         		// GO TO RECIEPT FORM
-    			RecieptForm form = new RecieptForm(this.store, petID);
+    			CreateRecieptForm form = new CreateRecieptForm(this.store, petID);
     			form.createAndShowGUI();
                 this.dispose();
         	}
@@ -147,7 +147,7 @@ public class LoginFormCustomer extends Form implements ActionListener {
     		JOptionPane.showMessageDialog(this, "Login Cancelled! Guest Adoption Selected",
     				"Customer Login Cancelled!", JOptionPane.WARNING_MESSAGE);
         	//GO TO RECIEPT FORM AS GUEST
-			RecieptForm form = new RecieptForm(this.store, petID);
+			CreateRecieptForm form = new CreateRecieptForm(this.store, petID);
 			form.createAndShowGUI();
         	this.dispose();
         }

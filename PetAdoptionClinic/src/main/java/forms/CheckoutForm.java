@@ -122,7 +122,7 @@ public class CheckoutForm extends Form implements ActionListener{
 				else if(result == JOptionPane.NO_OPTION) {
 					System.out.println("NON SIGN IN ADOPT FORM");
 					store.signedInCustomer = null;
-					RecieptForm form = new RecieptForm(this.store, petId);
+					CreateRecieptForm form = new CreateRecieptForm(this.store, petId);
 					form.createAndShowGUI();
 					this.dispose();
 				}

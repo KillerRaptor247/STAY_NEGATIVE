@@ -34,6 +34,14 @@ public class Sale {
 
 	}
 	
+	public Integer getPetID() {
+		return adoptedPet.getID();
+	}
+	
+	public String getPetName() {
+		return adoptedPet.getName();
+	}
+	
 	public Employee getEmployee() {
 		return signedInEmployee;
 	}

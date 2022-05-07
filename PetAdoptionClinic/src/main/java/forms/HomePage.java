@@ -27,6 +27,8 @@ public class HomePage extends Form implements ActionListener{
 	JMenu fileMenu;
 	JMenu createMenu;
 	JMenu editMenu;
+	JMenu viewMenu;
+	JMenuItem viewRecieptItem;
 	JMenuItem SignOutItem;
 	JMenuItem importItem;
 	JMenuItem exportItem;
@@ -72,6 +74,9 @@ public class HomePage extends Form implements ActionListener{
 		editMenu = new JMenu("Edit");
 		editMenu.getAccessibleContext().setAccessibleDescription("Edit Forms are here");
 		
+		viewMenu = new JMenu("View");
+		viewMenu.getAccessibleContext().setAccessibleDescription("Reciept Forms are here");
+		
 		SignOutItem = new JMenuItem("Sign Out");
 		importItem = new JMenuItem("Import Data");
 		exportItem = new JMenuItem("Export Data");
@@ -97,9 +102,13 @@ public class HomePage extends Form implements ActionListener{
 		editMenu.add(EditCusItem);
 		editMenu.add(EditPetItem);
 		
+		viewRecieptItem = new JMenuItem("View Reciepts");
+		viewMenu.add(viewRecieptItem);
+		
 		menuBar.add(fileMenu);
 		menuBar.add(createMenu);
 		menuBar.add(editMenu);
+		menuBar.add(viewMenu);
 		
 		// buttons and panel
 		welcomeLabel = new JLabel();
@@ -139,6 +148,7 @@ public class HomePage extends Form implements ActionListener{
 		checkoutButton.addActionListener(this);
 		importItem.addActionListener(this);
 		exportItem.addActionListener(this);
+		viewRecieptItem.addActionListener(this);
 		
 		// if the employee isn't a manager disable appropriate controls
 		if(!store.signedInEmployee.isManager()) {
@@ -212,6 +222,11 @@ public class HomePage extends Form implements ActionListener{
 		}
 		else if(e.getSource().equals(EditEmpItem)) {
 			DisplayEmpForm form = new DisplayEmpForm(this.store);
+			form.createAndShowGUI();
+			this.dispose();
+		}
+		else if(e.getSource().equals(viewRecieptItem)) {
+			DisplayRecieptForm form = new DisplayRecieptForm(this.store);
 			form.createAndShowGUI();
 			this.dispose();
 		}
