@@ -23,4 +23,4 @@ Our Renewed Iteration 1 project folder can be found [here](https://github.com/Ki
 Our Iteration 2 Project folder submission can be found [here](https://github.com/KillerRaptor247/STAY_Negative/tree/main/Iteration%202)
 
 # Iteration 3
-Our Iteration 3 Project folder submission can be found [here] and our UC video demonstrations can be found[here](https://github.com/KillerRaptor247/STAY_Negative/tree/main/Iteration%203/Videos)
+Our Iteration 3 Project folder submission can be found [here] and our UC video demonstrations can be found [here](https://github.com/KillerRaptor247/STAY_Negative/tree/main/Iteration%203/Videos)
