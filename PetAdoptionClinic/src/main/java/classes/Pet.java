@@ -9,7 +9,8 @@ public class Pet {
 	String name;
 	Species species;
 	Sex sex;
-	
+
+
 	public Species getSpecies() {
 		return species;
 	}
