@@ -15,7 +15,7 @@ public class PetDAO {
 	// map pet id to a pet
 	public Map<Integer, Pet> pets;
 	
-	PetDAO(){
+	public PetDAO(){
 		pets = new HashMap<Integer,Pet>();
 	}
 	
