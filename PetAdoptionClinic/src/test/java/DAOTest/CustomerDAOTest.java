@@ -7,7 +7,13 @@ import org.junit.jupiter.api.Test;
 
 public class CustomerDAOTest {
 
-    static CustomerDAO customerDAO = new CustomerDAO();
+    static CustomerDAO customerDAO;
+    
+    @BeforeEach
+    public void reset() {
+    	customerDAO = new CustomerDAO();
+    	customerDAO.customers.clear();
+    }
 
     @Test
     public void TestAddCustomer() {
@@ -25,6 +31,6 @@ public class CustomerDAOTest {
     @Test
     public void TestRemoveCustomer() {
         customerDAO.removeCustomer(1);
-        Assertions.assertEquals(1, customerDAO.customers.size());
+        Assertions.assertEquals(0, customerDAO.customers.size());
     }
 }
