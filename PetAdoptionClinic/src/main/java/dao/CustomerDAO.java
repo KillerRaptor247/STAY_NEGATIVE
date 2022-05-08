@@ -17,7 +17,7 @@ public class CustomerDAO {
 	// appropriate usernames
 	public Map<Integer, Customer> customers;
 	
-	CustomerDAO(){
+	public CustomerDAO(){
 		customers = new HashMap<Integer, Customer>();
 	}
 	

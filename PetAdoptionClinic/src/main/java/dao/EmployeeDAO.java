@@ -18,7 +18,7 @@ public class EmployeeDAO {
 	public Map<Integer, Employee> employees;
 	
 
-	EmployeeDAO(){
+	public EmployeeDAO(){
 		employees = new HashMap<Integer,Employee>();
 	}
 	
