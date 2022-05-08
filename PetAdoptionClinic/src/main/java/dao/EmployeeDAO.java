@@ -14,6 +14,7 @@ import classes.Customer;
 import classes.Employee;
 
 public class EmployeeDAO {
+	// map employee id to employee
 	public Map<Integer, Employee> employees;
 	
 

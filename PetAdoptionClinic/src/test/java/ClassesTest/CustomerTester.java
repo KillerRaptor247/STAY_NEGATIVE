@@ -1,81 +1,82 @@
 package ClassesTest;
 
-import classes.Customer;
 import org.junit.jupiter.api.*;
+
+import classes.Customer;
 
 
 public class CustomerTester {
     static Customer testCus;
 
     static Customer customer = new Customer("Name", "123 Baylor Street", "12", "123321", "123321", "name@baylor.edu");
-
+    
     @BeforeEach
-    static void CustomerInit() {
-        Customer testCus = new Customer();
+    public void CustomerInit() {
+        testCus = new Customer();
     }
 
     @Test
-    static void testGetName() {
+    public void testGetName() {
         Assertions.assertEquals("Name", customer.getName());
     }
 
     @Test
-    static void testGetAddress() {
+    public void testGetAddress() {
         Assertions.assertEquals("123 Baylor Street", customer.getAddress());
     }
 
     @Test
-    static void testGetAge() {
+    public void testGetAge() {
         Assertions.assertEquals("12", customer.getAge());
     }
 
     @Test
-    static void testGetUsername() {
+    public void testGetUsername() {
         Assertions.assertEquals("123321", customer.getUsername());
     }
 
     @Test
-    static void testGetPassword() {
+    public void testGetPassword() {
         Assertions.assertEquals("123321", customer.getPassword());
     }
 
     @Test
-    static void testGetEmail() {
+    public void testGetEmail() {
         Assertions.assertEquals("name@baylor.edu", customer.getEmail());
     }
 
     @Test
-    static void testSetName() {
+    public void testSetName() {
         testCus.setName("test");
         Assertions.assertEquals("test", testCus.getName());
     }
 
     @Test
-    static void testSetAddress() {
+    public void testSetAddress() {
         testCus.setAddress("321 Baylor Street");
         Assertions.assertEquals("321 Baylor Street", testCus.getAddress());
     }
 
     @Test
-    static void testSetAge() {
+    public void testSetAge() {
         testCus.setAge("21");
         Assertions.assertEquals("21", testCus.getAge());
     }
 
     @Test
-    static void testSetUsername() {
+    public void testSetUsername() {
         testCus.setUsername("321123");
         Assertions.assertEquals("321123", testCus.getUsername());
     }
 
     @Test
-    static void testSetPassword() {
+    public void testSetPassword() {
         testCus.setPassword("321123");
         Assertions.assertEquals("321123", testCus.getPassword());
     }
 
     @Test
-    static void testSetEmail() {
+    public void testSetEmail() {
         testCus.setEmail("test@baylor.edu");
         Assertions.assertEquals("test@baylor.edu", testCus.getEmail());
     }

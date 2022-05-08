@@ -16,25 +16,25 @@ public class SaleTest {
     static Sale sale = new Sale(p, c, e, "2020/5/1");
 
     @BeforeEach
-    static void init() {
+    public void init() {
         p.setName("Boo");
         c.setName("Customer");
         e.setName("Employee");
     }
 
     @Test
-    static void TestGetDateAdopted() {
+    public void TestGetDateAdopted() {
         Assertions.assertEquals("2020/5/1", sale.getDateAdopted());
     }
 
     @Test
-    static void TestGetCustomer() {
+    public void TestGetCustomer() {
         sale.setCustomer(c);
         Assertions.assertEquals("Customer", sale.getCustomer().getName());
     }
 
     @Test
-    static void TestGetEmployee() {
+    public void TestGetEmployee() {
         sale.setEmployee(e);
         Assertions.assertEquals("Employee", sale.getEmployee().getName());
     }
