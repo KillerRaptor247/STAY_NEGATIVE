@@ -1,6 +1,7 @@
 package forms;
 import javax.swing.*;
 
+import classes.Pet;
 import classes.Sex;
 import classes.Species;
 import dao.PetClinic;
@@ -41,7 +42,7 @@ public class CreatePetForm extends Form implements ActionListener{
         JPanel panelForForm = new JPanel(new SpringLayout());
 
         
-        idTF = new JTextField("1");
+        idTF = new JTextField(Pet.number.toString(), 15);
         idTF.setEditable(false);
         nameTF = new JTextField(15);
         nameTF.setEditable(true);

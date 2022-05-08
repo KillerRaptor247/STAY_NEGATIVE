@@ -2,7 +2,7 @@ package classes;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Pet {
-	private static final AtomicInteger number = new AtomicInteger(0);
+	public static final AtomicInteger number = new AtomicInteger(0);
 	Integer ID;
 	String age;
 	String breed;
@@ -70,6 +70,7 @@ public class Pet {
 	public void setSex(Sex sex) {
 		this.sex = sex;
 	}
+	
 	
 	
 }
